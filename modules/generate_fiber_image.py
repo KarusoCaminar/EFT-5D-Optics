@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter, FFMpegWriter
+from matplotlib.animation import FuncAnimation, PillowWriter, FFMpegWriter, FFMpegWriter
 import os
 
 """
@@ -84,6 +84,17 @@ anim = FuncAnimation(fig, update, frames=450, interval=20, blit=True)
 
 # Ensure images dir exists
 os.makedirs("images", exist_ok=True)
+
+# Save as MP4
+mp4_path = os.path.join("images", "fiber_simulation.mp4")
+try:
+    anim.save(mp4_path, writer=FFMpegWriter(fps=30), dpi=100)
+    print(f"Saved MP4: {mp4_path}")
+except Exception as e:
+    print(f"FFmpeg not found or error saving MP4: {e}. Skipping MP4.")
+    
+# Standard PNG fallback
+plt.savefig('images/fiber_simulation.png')
 
 # Save GIF
 gif_path = os.path.join("images", "fiber_simulation.gif")

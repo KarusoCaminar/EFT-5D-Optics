@@ -113,19 +113,26 @@ anim = FuncAnimation(fig, update, frames=450, interval=20, blit=True)
 os.makedirs("images", exist_ok=True)
 
 # Save GIF
-gif_path = os.path.join("images", "prism_simulation.gif")
-print(f"Saving GIF to {gif_path}...")
-anim.save(gif_path, writer=PillowWriter(fps=30))
-print("GIF saved.")
-
-# Save MP4
+# Save as MP4 (Preferred for size)
 mp4_path = os.path.join("images", "prism_simulation.mp4")
+gif_path = os.path.join("images", "prism_simulation.gif")
 try:
     print(f"Saving MP4 to {mp4_path}...")
     anim.save(mp4_path, writer=FFMpegWriter(fps=30))
     print("MP4 saved.")
 except Exception as e:
     print(f"Could not save MP4: {e}")
+    print("FFmpeg not found. Saving as GIF (Low Res)...")
+    try:
+        anim.save(gif_path, writer=PillowWriter(fps=30))
+        print("GIF saved.")
+    except Exception as gif_e:
+        print(f"Could not save GIF either: {gif_e}")
+
+# Save last frame as PNG for PDF
+png_path = os.path.join("images", "prism_simulation.png")
+plt.savefig(png_path)
+print(f"Last frame saved as PNG to {png_path}")
 
 plt.close(fig)
 print("Done.")

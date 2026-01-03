@@ -98,13 +98,20 @@ anim.save(gif_path, writer=PillowWriter(fps=30))
 print("GIF saved.")
 
 # Save MP4 (Try/Except in case ffmpeg is not available)
-mp4_path = os.path.join("images", "cloaking_simulation.mp4")
+mp4_path = os.path.join("images", "cloaking_simulation.mp4") # Save as MP4
 try:
-    print(f"Saving MP4 to {mp4_path}...")
-    anim.save(mp4_path, writer=FFMpegWriter(fps=30))
-    print("MP4 saved.")
-except Exception as e:
-    print(f"Could not save MP4 (ffmpeg might be missing): {e}")
+    anim.save(mp4_path, writer='ffmpeg', fps=30, dpi=100)
+    print(f"Saved MP4: {mp4_path}")
+except Exception as e: # Catch specific exception for ffmpeg writer
+    print("FFmpeg not found. Skipping MP4 using default writer.")
+    try:
+        # Fallback to FFMpegWriter if 'ffmpeg' string writer fails
+        anim.save(mp4_path, writer=FFMpegWriter(fps=30))
+        print("MP4 saved using FFMpegWriter.")
+    except Exception as e_fallback:
+        print(f"Could not save MP4 (ffmpeg might be missing or other error): {e_fallback}")
+
+plt.savefig('images/cloaking_simulation_result.png')
 
 plt.close(fig)
 print("Done.")

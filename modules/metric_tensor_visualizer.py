@@ -37,11 +37,11 @@ def run_metric_visualization():
     Phi_values = []
     
     # Material-Parameter "Elastizität"
-    # Wie stark schrumpft die 5. Dimension unter Stress?
-    # Modell: Hookesches Gesetz für Raumzeit. Stress ~ E^2
-    # Phi = Phi_0 + gamma * E^2
+    # Wie stark KOMPRIMIERT die 5. Dimension unter Stress?
+    # Modell: n = 1/Phi. Für Kerr (n steigt mit E^2) muss Phi SINKEN.
+    # Stress ~ E^2 führt zu Kompression (Phi_0 - gamma * E^2)
     Phi_0 = 1.0
-    gamma = 0.1 
+    gamma = 0.05  # Kompressionskoeffizient
     
     fig = plt.figure(figsize=(12, 6))
     
@@ -57,9 +57,9 @@ def run_metric_visualization():
         E = E_values[frame]
         
         # Die Reaktion der 5. Dimension (Das "Atmen")
-        # Stress auf G_04 führt zu Strain in G_55
+        # Stress auf G_04 führt zu KOMPRESSION in G_55 (Phi sinkt)
         delta_Phi = gamma * E**2 
-        Phi = Phi_0 + delta_Phi
+        Phi = Phi_0 - delta_Phi  # MINUS! Kompression
         
         # Werte speichern
         Phi_values.append(Phi)
@@ -86,11 +86,10 @@ def run_metric_visualization():
         # Plot Kerr
         ax_kerr.clear()
         ax_kerr.plot(E_values[:len(Phi_values)], Phi_values, 'r-', linewidth=2)
-        ax_kerr.set_xlim(0, E_max)
-        ax_kerr.set_ylim(0.9, 1.5)
+        ax_kerr.set_ylim(0.7, 1.1)
         ax_kerr.set_xlabel("Stress (Elektrisches Feld $E$)")
-        ax_kerr.set_ylabel("Größe der 5. Dimension ($\Phi$ / Brechungsindex)")
-        ax_kerr.set_title("Elastizität: Die '5D-Feder'")
+        ax_kerr.set_ylabel("Größe der 5. Dim. ($\Phi$) - n=1/$\Phi$ steigt!")
+        ax_kerr.set_title("Elastizität: Kompression der 5D-Feder")
         ax_kerr.grid(True)
         
         # Erklärung

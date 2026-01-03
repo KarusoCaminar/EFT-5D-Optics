@@ -3,8 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Generated Reports
-# QRS_Final_Report.html (Local build artifact)
+# Generated Images (Large files stay LOCAL only)
+images/*.gif
+images/*.png
+# MP4s are small enough for GitHub
+# (They are included by default since folder is not ignored)
 
 
 # VS Code

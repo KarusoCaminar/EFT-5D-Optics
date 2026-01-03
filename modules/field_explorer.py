@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
+from matplotlib.animation import FuncAnimation, PillowWriter, FFMpegWriter
 import sys
 
 def run_field_explorer():
@@ -102,10 +102,19 @@ def run_field_explorer():
             
         gif_path = os.path.join(output_dir, 'field_explorer.gif')
         png_path = os.path.join(output_dir, 'field_explorer_snapshot.png')
-        
+        mp4_path = os.path.join(output_dir, 'field_explorer.mp4')
+
         print(f"Saving animation to '{gif_path}'...")
         anim.save(gif_path, writer=PillowWriter(fps=30))
         print("Animation saved.")
+        
+        # Save as MP4
+        try:
+            print(f"Saving MP4 to '{mp4_path}'...")
+            anim.save(mp4_path, writer=FFMpegWriter(fps=30), dpi=100)
+            print(f"MP4 saved.")
+        except Exception as e:
+            print(f"FFmpeg not found or error saving MP4: {e}. Skipping MP4.")
         
         # Also save a snapshot for static report
         plt.savefig(png_path)
