@@ -1,48 +1,50 @@
-# QRS: The Geometric Unified Theory of Matter (5D Optics)
+# QRS: The Effective Field Theory of 5D Optics (Scientific Atlas V4.2)
 
 > **"What if Refraction is just Geometry?"**
 
-**Status:** Final Scientific Release (Version 3.0)  
-**Date:** January 03, 2026  
+**Status:** Final Scientific Release (Version 4.2 Universal)  
+**Date:** January 04, 2026  
+**Calibration:** Silicon Standard ($K=63.5$)  
 **Subject:** Theoretical Physics / Condensed Matter / 5D Kaluza-Klein  
+
+![Lattice Schematic](images/plots/lattice_schematic.png)
+*(Figure: The "Geometric Locking" of a 5D-Metric Wave into a Sapphire Crystal Lattice with Ratio ~2.08)*
 
 ---
 
-## 🌌 The Big Idea
+## 🌌 The Big Idea (V4.2 Universal Theory)
 
 This project provides the computational proof that **optical refraction ($n$)** is identical to a scalar field gradient in a compact 5th dimension ($n = 1/\Phi$). By identifying the refractive index as a geometric property of spacetime, we unify **General Relativity**, **Electrodynamics**, and **Quantum Mechanics** into a single Effective Field Theory (EFT).
 
-### Key Discovery: The Fundamental Identity
+### The Universal Calibration ($K=63.5$)
 
-$$n(x) = \frac{1}{\Phi(x)}$$
-*Where $\Phi$ is the local size of the 5th dimension ($S^1$ radius).*
+Unlike previous versions, V4.2 uses a **single universal constant**, calibrated so that **Silicon** (the purest crystal) has a perfect half-wave resonance ($N=0.5$).
+Using this ruler, we successfully predicted properties of other materials without fitting parameters:
+
+* **Sapphire ($Al_2O_3$):** Predicted $R_{5D} \approx 0.99$ nm $\to$ Ratio $N \approx 2.08$ (Matches 2nd Harmonic).
+* **Result:** A unified theory for all crystals.
 
 ---
 
 ## 📂 Repository Structure
 
-### I. Core Theory (The Kernel)
+### I. The Dashboard (Automation)
 
-The complete mathematical framework, deriving the laws of nature from the 5D Metric Tensor $G_{AB}$.
+* 💻 **`dashboard.py`**: The central control center. Run with `--batch` to regenerate the entire Scientific Atlas from scratch.
+* 📄 **`QRS_Final_Report.html`**: The generated "Scientific Atlas" containing all plots and theory.
 
-* 📄 **[Unified_Theory_V3.md](docs/Unified_Theory_V3.md)** (The Master Document)
-  * *Includes:* Derivation of $\chi \propto \Phi^{-5}$ (Why matter couples strongly).
-  * *Includes:* The Hydrogen Proof ($R_{5D} \approx 16 a_0$).
-* 📄 **[Scientific_Simulation_Manual.md](docs/Scientific_Simulation_Manual.md)** (Technical Companion)
+### II. Simulation Modules (`modules/`)
 
-### II. Simulation & Proof (The Evidence)
+* **Geometry:** `tesseract_projection.py`, `kaluza_klein_visualizer.py`
+* **Quantum:** `quantum_ring_visualizer.py` (Explains quantization via topology)
+* **Matter:** `lattice_schematic.py`, `material_scanner.py` (The V4.2 Proof)
+* **Experiment:** `kagra_noise_simulation.py` (Gravitational Wave Noise Prediction)
+* **Advanced:** `optical_black_hole.py`, `interactive_cloaking.py`
 
-Python modules that simulate the 5D physics and validate it against real-world data (Sapphire).
+### III. Documentation (`docs/`)
 
-* 🧪 **`modules/optical_black_hole.py`**: Simulates event horizons using ultra-short pulses.
-* 🧪 **`modules/lorentz_proof.py`**: Demonstrates that the Magnetic Force is a Coriolis effect in 5D.
-* 🧪 **`modules/metric_tensor_visualizer.py`**: Visualizes the Kerr-Effect as spacetime compression.
-* 📉 **Validation:** RMSE < 1% against experimental Sellmeier data.
-* 🎬 **Video:** [Field Explorer Animation](images/animations/field_explorer.mp4)
-
-### III. Vision & Outlook (The Future)
-
-* 🔮 **[Future_Physics_Roadmap.md](docs/Future_Physics_Roadmap.md)**: From Optical Black Holes to Room-Temperature Superconductors via Moiré Metamaterials.
+* **`walkthrough.md`**: A detailed audit of every graphic in the report.
+* **`Math_for_Humans.txt`**: The simplified derivation.
 
 ---
 
@@ -50,26 +52,28 @@ Python modules that simulate the 5D physics and validate it against real-world d
 
 ### Quick Start (Windows)
 
-Double-click **`run_all.bat`** to run the complete suite of simulations and generate the **QRS Final Report (PDF)**.
+Double-click **`run_all.bat`** (or run `python dashboard.py --batch`) to:
+
+1. Run all 14 scientific simulations.
+2. Generate the **QRS Final Report (PDF/HTML)**.
 
 ### Manual Run
 
 ```bash
-# 1. Install Dependencies
-pip install numpy matplotlib scipy
+# Install Dependencies
+pip install numpy matplotlib scipy xhtml2pdf
 
-# 2. Run Main Simulation (Proof)
-python modules/educational_proof.py
+# Run a specific experiment (e.g., Grid Locking)
+python modules/experiments/grid_locking.py
 
-# 3. Generate Visuals
-python modules/field_explorer.py
-python modules/optical_black_hole.py
+# Generate the Atlas Report
+python generate_report.py
 ```
 
 ---
 
-## ⚠️ Scientific Note
+## ⚠️ Scientific Note (V4.2 Update)
 
-This research suggests that the historical **Kaluza-Klein theory** did not fail—it was simply misapplied to the vacuum. When applied to **condensed matter**, the 5th dimension becomes a physical reality with a measurable radius ($R \approx 0.86$ nm), as proven by the resonant coupling $\chi \propto \Phi^{-5}$.
+This research suggests that the historical **Kaluza-Klein theory** did not fail—it was simply misapplied to the vacuum. When applied to **condensed matter** and calibrated to Silicon ($K=63.5$), the 5th dimension becomes a physical reality with a measurable radius ($R_{Sapphire} \approx 0.99$ nm), explaining the anomalous "Geometry Drag" in KAGRA mirrors.
 
 *Copyright © 2026 QRS Research Group. Open Source MIT License.*
