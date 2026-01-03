@@ -14,39 +14,41 @@ def generate_report():
     # Files to include (ALL visual artifacts)
     images = {
         # Geometry
-        "tesseract": "images/tesseract_projection.gif",
-        "metric": "images/metric_tensor_visualization.png",
-        "kaluza": "images/kaluza_klein_visualization.png",
-        "quantum_ring": "images/quantum_ring_visualization.png",
+        "tesseract": "images/animations/tesseract_projection.gif",
+        "metric": "images/plots/metric_tensor_visualization.png",
+        "kaluza": "images/plots/kaluza_klein_visualization.png",
+        "quantum_ring": "images/plots/quantum_ring_visualization.png",
         # Matter
-        "lattice": "images/lattice_schematic.png",
-        "lattice_corr": "images/lattice_correlation.png",
-        "momentum": "images/momentum_transfer.png",
+        "lattice": "images/plots/lattice_schematic.png",
+        "lattice_corr": "images/plots/lattice_correlation.png",
+        "momentum": "images/plots/momentum_transfer.png",
         # Proof
-        "dispersion": "images/dispersion_validation.png",
-        "field": "images/field_explorer_snapshot.png",  # Use PNG for PDF
-        "tower": "images/kk_tower_spectrum.png",
+        "dispersion": "images/plots/dispersion_validation.png",
+        "field": "images/plots/field_explorer_snapshot.png",  # Use PNG for PDF
+        "tower": "images/plots/kk_tower_spectrum.png",
         # Experiment
-        "tensor": "images/tensor_simulation_results.png",
-        "noise_raw": "images/quantum_refractometer_results_v2.png",
-        "noise_temp": "images/quantum_refractometer_temperature.png",
-        "spatial": "images/spatial_averaging.png",
-        "cavity": "images/cavity_response.png",
-        "snr": "images/sensitivity_snr.png",
-        "validation": "images/real_data_validation.png",
-        "cloaking": "images/cloaking_simulation_result.png",  # Use PNG
-        "prism": "images/prism_simulation.png",  # Use PNG
-        "fiber": "images/fiber_simulation.png",  # Use PNG
-        "galaxy": "images/galactic_rotation.png",
-        "raytrace": "images/raytracing_procedural.png",
-        "conoscopy": "images/experiment_conoscopy.png",
-        "locking": "images/experiment_locking.png",
-        "kagra": "images/experiment_kagra.png",
-        "kagra_noise": "images/kagra_noise_prediction.png",
-        "light_geo": "images/light_as_geometry.png",
+        "tensor": "images/plots/tensor_simulation_results.png",
+        "noise_raw": "images/plots/quantum_refractometer_results_v2.png",
+        "noise_temp": "images/plots/quantum_refractometer_temperature.png",
+        "spatial": "images/plots/spatial_averaging.png",
+        "cavity": "images/plots/cavity_response.png",
+        "snr": "images/plots/sensitivity_snr.png",
+        "validation": "images/plots/real_data_validation.png",
+        "cloaking": "images/plots/cloaking_simulation_result.png",  # Use PNG
+        "prism": "images/plots/prism_simulation.png",  # Use PNG
+        "fiber": "images/plots/fiber_simulation.png",  # Use PNG
+        "galaxy": "images/plots/galactic_rotation.png",
+        "raytrace": "images/plots/raytracing_procedural.png",
+        "conoscopy": "images/plots/experiment_conoscopy.png",
+        "locking": "images/plots/experiment_locking.png",
+        "kagra": "images/plots/experiment_kagra.png",
+        "kagra_noise": "images/plots/kagra_noise_prediction.png",
+        "kagra_noise": "images/plots/kagra_noise_prediction.png",
+        "light_geo": "images/plots/light_as_geometry.png",
+        "engineering": "images/plots/engineering_applications.png",
         # NEW: Fundamental Forces
-        "lorentz": "images/lorentz_proof.png",
-        "black_hole": "images/optical_black_hole.png"
+        "lorentz": "images/plots/lorentz_proof.png",
+        "black_hole": "images/plots/optical_black_hole.png"
     }
     
     # HTML Header & Style (Optimized for Screen & A4 Print)
@@ -436,6 +438,18 @@ def generate_report():
             <h2>11. Der Realitäts-Check (NASA & KAGRA)</h2>
             <p>Um die Theorie zu beweisen, vergleichen wir sie mit echten Messdaten.</p>
             
+            <div class="visual-card">
+                <div class="visual-img">
+                    <img src="data:image/png;base64,{get_image_base64(images['engineering'])}" />
+                </div>
+                <div class="visual-desc">
+                    <h4>Ingenieur-Anwendung: Gravitationswellen & Laser</h4>
+                    <p><strong>Code:</strong> <code>modules/engineering_application.py</code></p>
+                    <p><strong>Das Einstein-Teleskop:</strong> Wir haben berechnet, ob 5D-Rauschen (15 THz) die Gravitationswellen-Detektion (100 Hz) stört. Ergebnis: Nein, die Unterdrückung ist $10^{23}$-fach.</p>
+                    <p><strong>Hochleistungslaser:</strong> Bei 10 kW Lasern dominiert der thermische Effekt (Hitze) den 5D-Kerr-Effekt um den Faktor 2600. Um 5D zu messen, braucht man Femtosekunden-Pulse.</p>
+                </div>
+            </div>
+
             <div class="visual-card">
                 <div class="visual-img">
                     <img src="data:image/png;base64,{get_image_base64(images['conoscopy'])}" />

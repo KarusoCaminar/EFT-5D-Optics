@@ -131,12 +131,13 @@ try:
     print("MP4 saved.")
 except Exception as e:
     print(f"Could not save MP4: {e}")
-    print("FFmpeg not found. Saving as GIF (Low Res)...")
-    try:
-        anim.save(gif_path, writer=PillowWriter(fps=30))
-        print("GIF saved.")
-    except Exception as gif_e:
-        print(f"Could not save GIF either: {gif_e}")
+
+try:
+    print(f"Saving GIF to {gif_path} (High Res)...")
+    anim.save(gif_path, writer=PillowWriter(fps=30))
+    print("GIF saved.")
+except Exception as gif_e:
+    print(f"Could not save GIF: {gif_e}")
 
 # Save last frame as PNG for PDF
 png_path = os.path.join("images", "prism_simulation.png")

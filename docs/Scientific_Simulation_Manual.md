@@ -63,7 +63,7 @@ Der Brechungsindex $n$ ist der **Kehrwert** des Skalarfeldes $\Phi$ (Größe der
     Wir modellieren das Skalarfeld $\Phi$ als Funktion des elektrischen Feldes $E$:
     $$\Phi(E) = \Phi_0 - \chi^{(3)} E^2$$
     Da $n = 1/\Phi$, folgt: Je stärker das Feld, desto kleiner $\Phi$, desto größer $n$.
-    $$n_{eff} = 1/\Phi \approx n_0 + \gamma E^2$$ (Kerr-Effekt).
+    $$n_{eff} = 1/\Phi \approx n_0 + \gamma E^2 \quad \text{(Kerr-Effekt)}$$
 * **Warum:** Der Kerr-Effekt (Nichtlineare Optik) ist in Wahrheit elastische **Kompression** der 5. Dimension.
 
 ---

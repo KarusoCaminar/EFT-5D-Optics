@@ -1,7 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import FuncAnimation, PillowWriter, FFMpegWriter
 from itertools import combinations
+import os
+
+# Configure FFmpeg Path explicitly
+ffmpeg_path = r"C:\Users\Moritz\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffmpeg.exe"
+plt.rcParams['animation.ffmpeg_path'] = ffmpeg_path
 
 # --- 1. Tesserakt Geometrie (4D) ---
 def create_tesseract():
@@ -122,6 +127,13 @@ try:
     print("Animation saved to 'tesseract_projection.gif'")
 except Exception as e:
     print(f"Could not save GIF: {e}")
+
+# Save as MP4
+try:
+    anim.save('tesseract_projection.mp4', writer=FFMpegWriter(fps=30), dpi=100)
+    print("Animation saved to 'tesseract_projection.mp4'")
+except Exception as e:
+    print(f"Could not save MP4: {e}")
 
 print("Beobachte: In bestimmten Winkeln formt der Schatten ein perfektes HEXAGON.")
 print("Das ist der Moment, in dem die 5D-Geometrie als Graphen-Gitter sichtbar wird.")
