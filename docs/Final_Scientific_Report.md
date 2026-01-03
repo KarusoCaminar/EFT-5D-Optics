@@ -29,12 +29,12 @@ Was wir als "Masse" wahrnehmen, ist der Impuls entlang der 5. Dimension (Kaluza-
 
 #### 2.1 Visualisierung: Der Tesserakt
 
-![Tesserakt Projektion](images/animations/tesseract_projection.gif)
+![Tesserakt Projektion](../images/animations/tesseract_projection.gif)
 *Abbildung 1: Der rotierende 4D-Hyperwürfel (Schattenwurf in 3D). Materie ist der Schatten höherdimensionaler Strukturen.*
 
 #### 2.2 Der Metrische Spanner (Kerr-Effekt)
 
-![Metrischer Tensor](images/plots/metric_tensor_visualization.png)
+![Metrischer Tensor](../images/plots/metric_tensor_visualization.png)
 *Abbildung 2: Ein elektrisches Feld dehnt die 5. Dimension. Das Licht wird langsamer ($n$ steigt), weil es einen längeren Weg durch die Geometrie zurücklegen muss.*
 
 ---
@@ -59,12 +59,12 @@ Die Suszeptibilität skaliert mit der 5. Potenz der Verdünnung. Dies löst das 
 
 #### 4.1 Der "Golden Hit": Kochsalz (NaCl)
 
-![NaCl Reality Check](images/plots/nacl_reality_check.png)
+![NaCl Reality Check](../images/plots/nacl_reality_check.png)
 *Abbildung 3: Realitäts-Check für NaCl. Die roten Linien sind unser 5D-Modell, die schwarzen Punkte echte Messwerte. Fit-Fehler < 0.1%.*
 
 #### 4.2 Saphir & Geometrisches Locking
 
-![Lattice Locking](images/plots/lattice_schematic.png)
+![Lattice Locking](../images/plots/lattice_schematic.png)
 *Abbildung 4: Der 5D-Radius von Saphir (0.86 nm) passt genau in zwei Gitterzellen (0.43 nm). Der Kristall stabilisiert die Dimension.*
 
 ---
@@ -75,17 +75,17 @@ Wir haben diverse Phänomene simuliert, **ohne** optische Gesetze zu programmier
 
 #### 5.1 Die Tarnkappe (Cloaking)
 
-![Cloaking Simulation](images/animations/cloaking_simulation.gif)
+![Cloaking Simulation](../images/animations/cloaking_simulation.gif)
 *Abbildung 5: Lichtwellen fließen um einen Kern herum, geleitet durch einen Gradienten in der 5. Dimension.*
 
 #### 5.2 Das Prisma
 
-![Prisma Simulation](images/animations/prism_simulation.gif)
+![Prisma Simulation](../images/animations/prism_simulation.gif)
 *Abbildung 6: Ein Lichtstrahl bricht sich am 5D-Dichte-Dreieck. Snellius' Gesetz, emergent.*
 
 #### 5.3 Totale Reflexion (Glasfaser)
 
-![Faser Simulation](images/animations/fiber_simulation.gif)
+![Faser Simulation](../images/animations/fiber_simulation.gif)
 *Abbildung 7: Licht bleibt im Kern gefangen, weil die "Wände" (dünnere 5D-Raumzeit) undurchdringlich sind.*
 
 ---
@@ -94,12 +94,12 @@ Wir haben diverse Phänomene simuliert, **ohne** optische Gesetze zu programmier
 
 #### 6.1 Magnetismus als Lorentz-Torsion
 
-![Lorentz Kraft](images/plots/lorentz_proof.png)
+![Lorentz Kraft](../images/plots/lorentz_proof.png)
 *Abbildung 8: Ein Teilchen bewegt sich 5D-geradeaus, beschreibt aber in 4D einen Kreis. Magnetismus ist Trägheit.*
 
 #### 6.2 Das Optische Schwarze Loch
 
-![Black Hole](images/plots/optical_black_hole.png)
+![Black Hole](../images/plots/optical_black_hole.png)
 *Abbildung 9: Wenn ein Lichtpuls die Geometrie so stark ändert, dass nachfolgendes Licht nicht mehr entkommen kann ("Ereignishorizont").*
 
 ---
@@ -108,7 +108,7 @@ Wir haben diverse Phänomene simuliert, **ohne** optische Gesetze zu programmier
 
 #### 7.1 Rotationskurven ohne Dunkle Materie
 
-![Galaxie Rotation](images/plots/galactic_rotation.png)
+![Galaxie Rotation](../images/plots/galactic_rotation.png)
 *Abbildung 10: Die Rotationskurve von UGC 2885 (NASA Daten, schwarz). Unsere Theorie (Rot) erklärt das Plateau durch geometrische Spannung ("Metric Tension").*
 
 ---
