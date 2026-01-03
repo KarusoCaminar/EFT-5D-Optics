@@ -2,9 +2,9 @@ import numpy as np
 
 """
 Module: physics_engine.py
-Status: Core Engine (V4.0)
+Status: Core Engine (V4.2 - Universal)
 Purpose: Centralizes all physical laws and constants for the 5D-Optics framework.
-         Implements the 'Hardened' Theory V4.0 logic.
+         Implements the 'Hardened' Theory V4.0 logic with improved numerical stability.
 """
 
 class PhysicsEngine:
@@ -15,6 +15,11 @@ class PhysicsEngine:
         # Theory Parameters (V4.0)
         # Power Law: Chi ~ Phi^k
         self.COUPLING_EXPONENT = -5.0
+        
+        # Universal Calibration (V4.2 - Silicon Gauge Fixing)
+        # Sets the energy scale such that Silicon (n=3.42) has Resonance N=0.5
+        # Previous legacy value was ~73 (based on Saphir).
+        self.SCALING_FACTOR_K = 63.5
         
         # Internal State
         self.objects = []
@@ -27,6 +32,7 @@ class PhysicsEngine:
         """
         Calculates the scalar field 'n' (Refractive Index) at a given 3D position [x, y, z].
         n is emergent from the 5D scalar field Phi: n = 1/Phi.
+        Default implementation uses added objects.
         """
         x, y = pos[0], pos[1]
         
@@ -34,29 +40,40 @@ class PhysicsEngine:
         n_val = 1.0
         
         # Simple composition: Take the MAX n of all objects (simplification for overlap)
-        # Or smooth blending.
         for obj in self.objects:
-            # Check interaction
             if obj['type'] == 'sphere':
                 r = np.sqrt((x - obj['x'])**2 + (y - obj['y'])**2)
                 if r < obj['radius']:
                     n_val = max(n_val, obj['n'])
-                # Transitions?
+                # Transitions can be handled by custom sources
                 
         return n_val
+
+    def set_n_field_source(self, source_func):
+        """
+        Sets a custom source for the refractive index field.
+        Replaces 'monkey patching' with a proper interface, allowing complex simulations
+        to override the default object list.
+        """
+        # We bind the method to the instance
+        self.n_field = source_func
 
     def get_phi(self, pos):
         """Returns the 5D Scalar Field Phi at pos."""
         return 1.0 / self.n_field(pos)
         
-    def get_gradients(self, pos, delta=0.01):
+    def get_gradients(self, pos, delta=1e-3):
         """
         Numerical gradient of n.
         Needed for the Geodesic Equation.
+        'delta' should be small relative to feature size.
         """
         x, y = pos[0], pos[1]
         n0 = self.n_field(pos)
         
+        # We use a central difference for higher accuracy? 
+        # Or just finer forward/backward. 
+        # Standard forward diff with small delta:
         nx = self.n_field([x + delta, y])
         ny = self.n_field([x, y + delta])
         
@@ -67,57 +84,25 @@ class PhysicsEngine:
 
     def symplectic_step(self, pos, vel, dt):
         """
-        Symplectic Integrator (Velocity Verlet / Leapfrog semi-implicit)
-        Crucial for Energy conservation in Hamiltonian systems.
-        Hamiltonian H = |p| / n(x) = const.
-        
-        Equations of Motion (derived from Fermat's Principle / Geodesics):
-        d^2x/ds^2 = grad(n). (Simplified Ray Equation form approx).
-        Exact Relativistic Form:
-        d/ds (n v) = grad(n)
-        => n dv/ds + v (v.grad n) = grad n
-        => n dv/ds = grad n - v (v.grad n) = P_perp (grad n)
-        
-        Verlet Step:
-        x(t+dt) = x(t) + v(t)dt + 0.5*a(t)dt^2
-        v(t+dt) = v(t) + 0.5*(a(t) + a(t+dt))dt
+        Symplectic Integrator wrapper.
+        Currently defaults to RK4 for stability with velocity-dependent forces.
         """
-        
-        # 1. Half Step Velocity
-        grad_n = self.get_gradients(pos)
-        n = self.n_field(pos)
-        
-        # Acceleration a = (grad n - (v.grad n)v) / n
-        v_dot_grad = np.dot(vel, grad_n)
-        acc_t = (grad_n - v_dot_grad * vel) / n
-        
-        pos_new = pos + vel * dt + 0.5 * acc_t * dt**2
-        
-        # 2. Re-evaluate Force
-        grad_n_new = self.get_gradients(pos_new)
-        n_new = self.n_field(pos_new)
-        
-        # Note: Velocity has changed, we need estimate for dot product?
-        # Standard Verlet is for conservative forces F(x). Here F depends on v.
-        # This is tricky. Let's use RK4 for velocity-dependent forces OR simplified Geometric Verlet for Optics.
-        # Strict Symplectic for Raytracing: (q, p) coordinates.
-        # p = n * v (Canonical Momentum)
-        # H = |p|^2 / 2 - n^2(q) / 2 = 0? (Mechanical Analogy)
-        # Let's stick to High-Order RK4 for stability if Verlet is hard to formulate for v-dep forces.
-        
-        # Fallback to RK4 implementation
         return self.rk4_step(pos, vel, dt)
 
     def rk4_step(self, pos, vel, dt):
-        """Runge-Kutta 4 Integrator for Ray Equation."""
+        """Runge-Kutta 4 Integrator for Ray Equation (Geodesic)."""
         
+        # Adaptive delta heuristic:
+        # If dt is very small, we might be in a high precision zone, so we use finer gradients.
+        grad_delta = 1e-4 if dt < 0.05 else 1e-3
+
         def accel(p, v):
-            gn = self.get_gradients(p)
+            gn = self.get_gradients(p, delta=grad_delta)
             n_loc = self.n_field(p)
-            # Re-normalize v to be safe? No, let the integrator handle it,
-            # but Ray equation assumes parameter s is arc length (|v|=1).
-            # If |v| drifts, we must re-normalize energy.
             v_dir = v / np.linalg.norm(v)
+            # Geodesic Equation for Optics:
+            # d/ds(n v) = grad n  =>  n a + (v.grad n)v = grad n
+            # a = (grad n - (v.grad n)v) / n
             vdg = np.dot(v_dir, gn)
             a = (gn - vdg * v_dir) / n_loc
             return a
@@ -141,7 +126,7 @@ class PhysicsEngine:
         vel_new = vel + (k1_v + 2*k2_v + 2*k3_v + k4_v) / 6.0
         pos_new = pos + (k1_p + 2*k2_p + 2*k3_p + k4_p) / 6.0
         
-        # Enforce Conservation (Constraint |v|=1 for parameter s)
+        # Enforce |v| = 1 conservation (optional but good for stability)
         vel_new = vel_new / np.linalg.norm(vel_new)
         
         return pos_new, vel_new

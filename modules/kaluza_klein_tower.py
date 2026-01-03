@@ -1,11 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import os
 
-# --- 1. Physik-Engine ---
-# Basis-Werte aus unserer Theorie (Dispersion Validator Result)
-m1_eV = 229.40 # Grundmasse aus Saphir-Fit (n=1)
-c = 3e8        # Lichtgeschwindigkeit
+# Robust Import for PhysicsEngine
+# If running as script, 'modules' might not be in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from modules.physics_engine import PhysicsEngine
+
+# --- 1. Physik-Engine Integration ---
+# Calculate Spectrum from Universal Theory (V4.2)
+ENGINE = PhysicsEngine()
+
+# We analyze Sapphire as the reference case
+# n = 1.77
+n_sapphire = 1.77
+# Calculate Ground Mass m1 via Scaling Factor K
+m1_eV = ENGINE.SCALING_FACTOR_K * (n_sapphire**2) 
+# Result should be approx 63.5 * 1.77^2 = 198.9 eV (Updated from old 229 eV)
 
 def calculate_kk_tower(max_n=5):
     modes = []
@@ -25,14 +38,15 @@ def relativistic_velocity(energy_total_eV, rest_mass_eV):
     return beta # in Einheiten von c
 
 def run_kk_tower_analysis():
-    print("--- Kaluza-Klein Spectrum Analysis ---")
+    print("--- Kaluza-Klein Spectrum Analysis (Universal V4.2) ---")
+    print(f"Base Mass m1 (Sapphire n={n_sapphire}): {m1_eV:.2f} eV")
     
     # --- 2. Berechnung ---
     tower = calculate_kk_tower(6)
     
     # Wir schauen uns an, wie schnell ein Teilchen der Mode n=1 ist, 
     # wenn wir ihm verschiedene Energien geben.
-    energies_scan = np.linspace(229, 1000, 500) # eV
+    energies_scan = np.linspace(int(m1_eV), 1000, 500) # eV
     velocities_n1 = [relativistic_velocity(e, m1_eV) for e in energies_scan]
     velocities_n2 = [relativistic_velocity(e, m1_eV * 2) for e in energies_scan]
     
@@ -44,7 +58,7 @@ def run_kk_tower_analysis():
     ns = [x[0] for x in tower]
     ms = [x[1] for x in tower]
     bars = plt.bar(ns, ms, color='darkblue', alpha=0.7)
-    plt.title("Der Kaluza-Klein Turm (Saphir)\nVorhersage für Absorptions-Linien", fontsize=12)
+    plt.title(f"Der Kaluza-Klein Turm (Saphir)\nGround State m1 = {m1_eV:.1f} eV", fontsize=12)
     plt.xlabel("Mode $n$ (Quantenzahl)")
     plt.ylabel("Effektive Masse / Energie (eV)")
     plt.grid(True, axis='y', alpha=0.3)
@@ -66,20 +80,18 @@ def run_kk_tower_analysis():
     plt.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig('kk_tower_spectrum.png')
-    print("\nVisual saved to 'kk_tower_spectrum.png'")
+    os.makedirs("images/plots", exist_ok=True)
+    out_path = os.path.join("images", "plots", "kk_tower_spectrum.png")
+    plt.savefig(out_path)
+    print(f"\nVisual saved to '{out_path}'")
     
     # --- 4. Interpretation ---
     print("\n--- Analyse der 5D-Dynamik ---")
-    # hbar * c approx 197.3 eV nm
-    radius_nm = 197.3 / m1_eV 
-    print(f"Radius der 5. Dimension (R): {radius_nm:.2f} nm (aus h_bar*c / m1)")
+    radius_nm = ENGINE.H_BAR_C / m1_eV 
+    print(f"Radius der 5. Dimension (R): {radius_nm:.4f} nm")
     print("Interpretation:")
-    print(f"1. Ein Photon mit 300 eV (mehr als {m1_eV:.0f} eV) kann den n=1 Modus anregen.")
-    v_300 = relativistic_velocity(300, m1_eV)
-    print(f"   Es würde sich dann nur noch mit {v_300*100:.1f}% Lichtgeschwindigkeit bewegen.")
-    print(f"2. Ein Photon mit 1000 eV (Röntgen) kann sogar den n=2 Modus anregen.")
-    print("3. Diese 'Verlangsamung' durch Anregung der 5. Dimension IST die Brechung.")
+    print(f"1. Ein Photon mit > {m1_eV:.0f} eV kann den n=1 Modus anregen.")
+    print(f"2. Dieser neue Radius passt besser zum Gitter (N ~ 2.0).")
     
     if "--batch" not in sys.argv:
         plt.show()

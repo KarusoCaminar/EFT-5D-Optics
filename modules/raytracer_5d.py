@@ -34,8 +34,8 @@ def raytrace_sphere():
         n_val = 1.25 - 0.25 * np.tanh(k*(r-10))
         return n_val
     
-    # Monkey patch the engine (Pythonic flexibility)
-    engine.n_field = custom_n_field
+    # Use proper interface instead of monkey patching
+    engine.set_n_field_source(custom_n_field)
     
     def trace_ray(y_start, color='r'):
         pos = np.array([-20.0, y_start])
@@ -87,4 +87,3 @@ def raytrace_sphere():
 
 if __name__ == "__main__":
     raytrace_sphere()
-

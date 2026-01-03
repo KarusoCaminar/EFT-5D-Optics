@@ -3,31 +3,54 @@ import os
 import sys
 import time
 import shutil
+import argparse
 
 def print_header():
     print("="*60)
     print("      QUANTUM REFRACTOMETER SIMULATION SUITE")
-    print("           Status Dashboard v2.0 (Clean)")
+    print("           Status Dashboard v2.1")
     print("="*60)
     print(f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}")
     print("="*60)
 
+def organize_artifact(filename):
+    """Moves artifact to appropriate images subdirectory."""
+    if not os.path.exists(filename):
+        return False
+    
+    # Determine destination folder
+    ext = os.path.splitext(filename)[1].lower()
+    if ext in ['.gif', '.mp4', '.avi']:
+        subdir = "animations"
+    elif ext in ['.png', '.jpg', '.jpeg', '.svg']:
+        subdir = "plots"
+    else:
+        subdir = "" # Root of images/
+        
+    dest_dir = os.path.join("images", subdir)
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+        
+    dest_path = os.path.join(dest_dir, filename)
+    
+    try:
+        if os.path.exists(dest_path):
+            os.remove(dest_path)
+        shutil.move(filename, dest_path)
+        print(f"   -> ORGANIZED: Moved to {dest_path}")
+        return True
+    except Exception as e:
+        print(f"   -> ERROR moving artifact: {e}")
+        return False
+
 def run_module(script_name, description, artifact_check=None, extra_args=[]):
     print(f"\n[EXEC] Running {description}...")
     
-    # Scripts are now in modules/
     script_path = os.path.join("modules", script_name)
-    print(f"       File: {script_path}")
+    # print(f"       File: {script_path}")
     
     start_time = time.time()
     try:
-        # Run script. Subprocess inherits CWD, so scripts run in ROOT.
-        # This is good because they import each other (if they do) relative to root? 
-        # Wait, if script A imports script B, and both are in modules, 
-        # running 'python modules/A.py' from root requires 'modules' to be a package or PYTHONPATH adjusted.
-        # Most scripts here are standalone or import 'material_parameters'.
-        # We need to add 'modules' to PYTHONPATH for the subprocess.
-        
         env = os.environ.copy()
         env["PYTHONPATH"] = os.path.join(os.getcwd(), "modules")
         
@@ -40,15 +63,12 @@ def run_module(script_name, description, artifact_check=None, extra_args=[]):
             
             # Artifact Management
             if artifact_check:
-                # Script generated artifact in CWD (Root)
-                if os.path.exists(artifact_check):
-                    print(f"   -> VERIFIED: Artifact '{artifact_check}' created in root.")
-                    # Move to images/ folder
-                    dest = os.path.join("images", artifact_check)
-                    shutil.move(artifact_check, dest)
-                    print(f"   -> ORGANIZED: Moved to {dest}")
-                elif os.path.exists(os.path.join("images", artifact_check)):
-                     print(f"   -> VERIFIED: Artifact found in 'images/'.")
+                if organize_artifact(artifact_check):
+                    pass # Success message handled in function
+                elif os.path.exists(os.path.join("images", "plots", artifact_check)):
+                     print(f"   -> VERIFIED: Artifact found in 'images/plots/'.")
+                elif os.path.exists(os.path.join("images", "animations", artifact_check)):
+                     print(f"   -> VERIFIED: Artifact found in 'images/animations/'.")
                 else:
                      print(f"   -> WARNING: Expected artifact '{artifact_check}' missing!")
             return True
@@ -62,9 +82,41 @@ def run_module(script_name, description, artifact_check=None, extra_args=[]):
         print(f"   -> ERROR: Could not execute script. {e}")
         return False
 
-def main():
-    print_header()
+def launch_interactive_control_center():
+    """Launches interactive modules in separate windows without blocking."""
+    print("\n" + "="*60)
+    print("   LAUNCHING INTERACTIVE CONTROL CENTER")
+    print("="*60)
+    print("Opening visualization windows...")
     
+    scripts = [
+        ("interactive_prism.py", "Prism Simulation"),
+        ("interactive_cloaking.py", "Cloaking Simulation"),
+        ("tesseract_projection.py", "4D Tesseract Viewer"),
+        ("kaluza_klein_visualizer.py", "KK Cylinder Viewer"),
+        ("field_explorer.py", "5D Field Explorer")
+    ]
+    
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.path.join(os.getcwd(), "modules")
+    
+    processes = []
+    
+    for script_name, label in scripts:
+        print(f"   -> Starting {label}...")
+        script_path = os.path.join("modules", script_name)
+        # Use Popen to run in parallel/background
+        try:
+            p = subprocess.Popen(["python", script_path], env=env, cwd=os.getcwd())
+            processes.append(p)
+        except Exception as e:
+            print(f"      ERROR: Failed to launch {script_name}: {e}")
+            
+    print("\n[INFO] All interactive modules launched.")
+    print("       Close the windows to terminate them.")
+    print("="*60)
+
+def run_batch_simulation():
     results = {}
     
     # 1. Material Analysis
@@ -77,7 +129,7 @@ def main():
     results['Cavity'] = run_module("cavity_response.py", "Cavity Bandwidth Analysis", "cavity_response.png")
     results['Dispersion'] = run_module("dispersion_validator.py", "Spectral Dispersion Validation", "dispersion_validation.png")
     
-    # 3. Visualization Modules
+    # 3. Visualization Modules (Batch Mode)
     results['Vis Tesseract'] = run_module("tesseract_projection.py", "4D Tesseract", "tesseract_projection.gif", ["--batch"])
     results['Vis KK'] = run_module("kaluza_klein_visualizer.py", "KK Cylinder", "kaluza_klein_visualization.png", ["--batch"])
     results['Vis Quant'] = run_module("quantum_ring_visualizer.py", "Quantum Ring", "quantum_ring_visualization.png", ["--batch"])
@@ -105,9 +157,6 @@ def main():
         print("   -> ORGANIZED: Moved Math_for_Humans.txt to docs/")
 
     # 6. Report Generation
-    # generate_report is in ROOT, not modules. So handled differently? 
-    # Or implies generate_report.py handles its own imports.
-    # Wait, finalize_project.py left generate_report in root.
     print("\n[EXEC] Running Report Generator...")
     cmd = ["python", "generate_report.py"]
     res = subprocess.run(cmd, capture_output=True, text=True)
@@ -120,8 +169,37 @@ def main():
     print("\n" + "="*60)
     print("FINAL PROJECT STATUS REPORT")
     print("="*60)
-    print("All modules executed and organized.")
+    print("All batch modules executed.")
     print("Check 'QRS_Final_Report.html' for results.")
+
+def main():
+    print_header()
+    
+    parser = argparse.ArgumentParser(description="QRS Simulation Dashboard")
+    parser.add_argument("--batch", action="store_true", help="Run full batch simulation for report")
+    parser.add_argument("--interactive", action="store_true", help="Launch interactive control center")
+    
+    args = parser.parse_args()
+    
+    if args.batch:
+        run_batch_simulation()
+    elif args.interactive:
+        launch_interactive_control_center()
+    else:
+        # Menu Mode
+        print("Select Mode:")
+        print("  [1] Run Full Scientific Report (Batch Mode)")
+        print("  [2] Launch Interactive Control Center")
+        print("  [3] Exit")
+        
+        choice = input("\nEnter choice (1-3): ").strip()
+        
+        if choice == "1":
+            run_batch_simulation()
+        elif choice == "2":
+            launch_interactive_control_center()
+        else:
+            print("Exiting.")
 
 if __name__ == "__main__":
     main()

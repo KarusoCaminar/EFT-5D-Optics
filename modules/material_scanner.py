@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
+from modules.physics_engine import PhysicsEngine
 
 """
 Module: material_scanner.py
@@ -11,36 +12,32 @@ Theorie: Ein Material ist stabil/besonders, wenn R_5D / a_Gitter approx Integer 
 """
 
 # Konstanten
-H_BAR_C = 197.3269804 # eV * nm
-# Vereinfachte Annahme aus unserer Theorie: m_eff skaliert mit n^2 (Dispersions-Kopplung)
-# CALIBRATION V4.2 (The Silicon Fix):
-# Wir kalibrieren nicht mehr auf Saphir (dort war K~73), sondern auf das fundamentale Silizium (K~63.5).
-# Ziel: Silizium soll exakt 0.5 (Halbwelle) sein.
-SCALING_FACTOR_K = 63.5 
+# H_BAR_C = 197.3269804 # eV * nm (Now available in Engine, but keeping local copy or using Engine's?)
+# Let's use Engine's to be 100% consistent.
+ENGINE = PhysicsEngine()
 
 def calculate_5d_resonance(name, n_index, lattice_a_nm):
     """
     Berechnet die 5D-Metriken für ein gegebenes Material.
     """
     # 1. Berechne effektive Masse aus Brechungsindex (Heuristik)
-    m_eff_ev = SCALING_FACTOR_K * (n_index**2)
+    # Uses Universal Calibration K
+    m_eff_ev = ENGINE.SCALING_FACTOR_K * (n_index**2)
     
     # 2. Berechne 5D-Radius R (Compton-Wellenlänge der Masse)
     # R = hbar*c / m
     if m_eff_ev == 0: return 0, 0, 0
-    R_5d_nm = H_BAR_C / m_eff_ev
+    R_5d_nm = ENGINE.H_BAR_C / m_eff_ev
     
     # 3. Berechne Resonanz-Faktor N
     # N = R / a (oder a / R, je nach Definition. Wir nutzen R/a wie im Bericht)
-    # Korrektur: Im Bericht war R ~ 0.86, a ~ 0.47 => R/a ~ 1.8 (fast 2).
-    # NOTE: The user's heuristic m ~ n^2 differs from V3.0 (m fitted).
-    # Let's see what values this yields.
     resonance_ratio = R_5d_nm / lattice_a_nm
     
     return m_eff_ev, R_5d_nm, resonance_ratio
 
 def run_material_scan():
     print("--- 5D-Optics Universal Material Scanner ---")
+    print(f"Calibration: K={ENGINE.SCALING_FACTOR_K} (Silicon Gauge)")
     print("Scanning database for geometric resonances...")
     
     # Echte Materialdaten (Beispiele aus Datenbanken wie Materials Project / RefractiveIndex.info)
