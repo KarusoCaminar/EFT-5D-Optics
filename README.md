@@ -24,6 +24,20 @@ Using this ruler, we successfully predicted properties of other materials withou
 * **Sapphire ($Al_2O_3$):** Predicted $R_{5D} \approx 0.99$ nm $\to$ Ratio $N \approx 2.08$ (Matches 2nd Harmonic).
 * **Result:** A unified theory for all crystals.
 
+## 📚 Documentation & Scientific Validation
+
+* **[Scientific Critique & Defense (V4.3)](docs/Scientific_Critique_and_Defense.md):** Detailed response to peer review, establishing the EFT Framework ($n = 1/\phi$).
+* **[Project History (Phases 1-7)](docs/History_of_5D_Optics.md):** The complete evolution of the theory, from gravity hypothesis to QRS.
+* **[Mathematical Protocol](docs/Math_for_Humans.txt):** Step-by-step derivation of the Cutoff Scale $\Lambda$ (199 eV) for Sapphire.
+
+## 🤝 Contributing
+
+The QRS project is open for scientific collaboration. Please verify the `K` factor against new materials before submitting pull requests.
+
+## 📜 License
+
+MIT License - "Optics IS Geometry"
+
 ---
 
 ## 📂 Repository Structure
