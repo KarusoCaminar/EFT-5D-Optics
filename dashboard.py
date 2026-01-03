@@ -41,6 +41,7 @@ def organize_artifact(filename):
         return True
     except Exception as e:
         print(f"   -> ERROR moving artifact: {e}")
+        print("   -> Tip: Ensure the dashboard is not holding the file open.") # Tip added for robustness
         return False
 
 def run_module(script_name, description, artifact_check=None, extra_args=[]):
@@ -131,6 +132,11 @@ def run_batch_simulation():
     
     # 3. Visualization Modules (Batch Mode)
     results['Vis Tesseract'] = run_module("tesseract_projection.py", "4D Tesseract", "tesseract_projection.gif", ["--batch"])
+    
+    # Secondary artifact cleanup (Ensure MP4 is moved if generated)
+    if os.path.exists("tesseract_projection.mp4"):
+        organize_artifact("tesseract_projection.mp4")
+
     results['Vis KK'] = run_module("kaluza_klein_visualizer.py", "KK Cylinder", "kaluza_klein_visualization.png", ["--batch"])
     results['Vis Quant'] = run_module("quantum_ring_visualizer.py", "Quantum Ring", "quantum_ring_visualization.png", ["--batch"])
     results['Vis Matrix'] = run_module("metric_tensor_visualizer.py", "Metric Tensor", "metric_tensor_visualization.png", ["--batch"])
