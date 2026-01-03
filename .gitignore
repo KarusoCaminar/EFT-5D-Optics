@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Generated Reports
+# QRS_Final_Report.html (Local build artifact)
+
+
+# VS Code
+.vscode/
+
+# System
+Thumbs.db
+Desktop.ini
