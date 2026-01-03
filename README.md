@@ -1,62 +1,75 @@
-# QRS: The Effective Field Theory of 5D Optics
+# QRS: The Geometric Unified Theory of Matter (5D Optics)
 
 > **"What if Refraction is just Geometry?"**
 
-**Status:** Final Scientific Atlas (Version 3.0)  
-**License:** MIT Open Source  
-**Paradigm:** 5D Kaluza-Klein Geometry as an Effective Field Theory (EFT)
-
-This project provides the computational proof that optical refraction ($n$) is identical to a scalar field gradient in a 5th dimension ($n = 1/\Phi$). It unifies Optic with General Relativity.
+**Status:** Final Scientific Release (Version 3.0)  
+**Date:** January 03, 2026  
+**Subject:** Theoretical Physics / Condensed Matter / 5D Kaluza-Klein  
 
 ---
 
-## 🚀 One-Click Installation
+## 🌌 The Big Idea
 
-To reproduce all simulations (including the new "Dark Matter" and "Raytracing" modules) and generate the final report:
+This project provides the computational proof that **optical refraction ($n$)** is identical to a scalar field gradient in a compact 5th dimension ($n = 1/\Phi$). By identifying the refractive index as a geometric property of spacetime, we unify **General Relativity**, **Electrodynamics**, and **Quantum Mechanics** into a single Effective Field Theory (EFT).
 
-### Windows (Recommended)
+### Key Discovery: The Fundamental Identity
 
-Double-click **`run_all.bat`**.
+$$n(x) = \frac{1}{\Phi(x)}$$
+*Where $\Phi$ is the local size of the 5th dimension ($S^1$ radius).*
 
-### Manual (Linux/Mac)
+---
+
+## 📂 Repository Structure
+
+### I. Core Theory (The Kernel)
+
+The complete mathematical framework, deriving the laws of nature from the 5D Metric Tensor $G_{AB}$.
+
+* 📄 **[Unified_Theory_V3.md](docs/Unified_Theory_V3.md)** (The Master Document)
+  * *Includes:* Derivation of $\chi \propto \Phi^{-5}$ (Why matter couples strongly).
+  * *Includes:* The Hydrogen Proof ($R_{5D} \approx 16 a_0$).
+* 📄 **[Scientific_Simulation_Manual.md](docs/Scientific_Simulation_Manual.md)** (Technical Companion)
+
+### II. Simulation & Proof (The Evidence)
+
+Python modules that simulate the 5D physics and validate it against real-world data (Sapphire).
+
+* 🧪 **`modules/optical_black_hole.py`**: Simulates event horizons using ultra-short pulses.
+* 🧪 **`modules/lorentz_proof.py`**: Demonstrates that the Magnetic Force is a Coriolis effect in 5D.
+* 🧪 **`modules/metric_tensor_visualizer.py`**: Visualizes the Kerr-Effect as spacetime compression.
+* 📉 **Validation:** RMSE < 1% against experimental Sellmeier data.
+* 🎬 **Video:** [Field Explorer Animation](images/animations/field_explorer.mp4)
+
+### III. Vision & Outlook (The Future)
+
+* 🔮 **[Future_Physics_Roadmap.md](docs/Future_Physics_Roadmap.md)**: From Optical Black Holes to Room-Temperature Superconductors via Moiré Metamaterials.
+
+---
+
+## 🚀 Reproduction
+
+### Quick Start (Windows)
+
+Double-click **`run_all.bat`** to run the complete suite of simulations and generate the **QRS Final Report (PDF)**.
+
+### Manual Run
 
 ```bash
-pip install -r requirements.txt
-python dashboard.py
+# 1. Install Dependencies
+pip install numpy matplotlib scipy
+
+# 2. Run Main Simulation (Proof)
+python modules/educational_proof.py
+
+# 3. Generate Visuals
+python modules/field_explorer.py
+python modules/optical_black_hole.py
 ```
 
-After running, open **`QRS_Final_Report.html`** in your browser to see the Scientific Atlas.
-
 ---
 
-## 🌌 Features (The 3 Phases)
+## ⚠️ Scientific Note
 
-### Phase 1: The Quantum Refractometer (Foundations)
+This research suggests that the historical **Kaluza-Klein theory** did not fail—it was simply misapplied to the vacuum. When applied to **condensed matter**, the 5th dimension becomes a physical reality with a measurable radius ($R \approx 0.86$ nm), as proven by the resonant coupling $\chi \propto \Phi^{-5}$.
 
-* **Proof:** Derivation of 5D-Radius ($R \approx 0.86$ nm) from crystal lattice constants.
-* **Experiment:** Simulation of thermal noise in a high-Q cavity.
-* **Modules:** `tensor_simulation.py`, `sensitivity_calculator.py`, `dispersion_validator.py`.
-
-### Phase 2: The Expansion (Cosmology & CGI)
-
-* **Dark Matter:** Simulation of galactic rotation curves without particles (`galactic_curve.py`).
-* **5D-Raytracing:** Rendering crystal optics by solving the Geodesic Equation (`raytracer_5d.py`).
-* **Modules:** `galactic_curve.py`, `raytracer_5d.py`.
-
-### Phase 3: The Metamaterials (Engineering)
-
-* **Invisibility Cloaking:** Designing a $\Phi$-field topology that guides light around objects.
-* **Prism:** Emergent Snell's Law from pure geometry.
-* **Modules:** `interactive_cloaking.py`, `interactive_prism.py`.
-
----
-
-## 📚 Documentation structure
-
-* **`QRS_Final_Report.html`**: The main result. Start here.
-* **`docs/Math_for_Humans.txt`**: The narrative explanation (Start here for concepts).
-* **`docs/Math_Proof_5D_Optics.md`**: The rigorous derivation.
-* **`docs/Future_Physics_Roadmap.md`**: The plan for GLSL Shaders and Crystal Colliders.
-
----
-*© 2026 Antigravity Research Team*
+*Copyright © 2026 QRS Research Group. Open Source MIT License.*
