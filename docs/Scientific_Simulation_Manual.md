@@ -143,6 +143,30 @@ Bevor wir in die Formeln gehen: Warum rauscht das Vakuum in unseren Simulationen
     Dies komprimiert den Raum im Ring $R_1 < r < R_2$.
 * **Ergebnis:** Licht (weiß) fließt um das Objekt (rot). Es gibt keinen Schatten.
 
+### 4.2 Lorentz-Kraft als Geodäte (Magnetismus-Beweis)
+
+* **Datei:** `modules/lorentz_proof.py`
+* **Was:** Beweist, dass die Lorentz-Kraft $F = q(v \times B)$ ein Trägheitseffekt ist.
+* **Mathematik:**
+    In 5D bewegt sich das Teilchen geradeaus (Geodäte).
+    Die Metrik: $ds^2 = dt^2 - dx^2 + (d\xi + A_\mu dx^\mu)^2$
+    Projektion auf 4D ergibt:
+    $$\ddot{x} = \frac{q}{m} \dot{y} B, \quad \ddot{y} = -\frac{q}{m} \dot{x} B$$
+    Das ist exakt die Lorentz-Kraft! Die "Ladung" $q$ ist der Impuls $p_5$ in der 5. Dimension.
+* **Ergebnis:** Das Teilchen zieht Kreise (Zyklotron-Bahn), obwohl es sich in 5D "geradeaus" bewegt.
+
+### 4.3 Optisches Schwarzes Loch (Analog Gravity)
+
+* **Datei:** `modules/optical_black_hole.py`
+* **Was:** Simuliert einen Ereignishorizont in einer Glasfaser.
+* **Physik:**
+    Ein intensiver Laserpuls ändert $n(x,t)$ via Kerr-Effekt.
+    Wenn der Puls mit Geschwindigkeit $v_{Puls}$ läuft und $c/n < v_{Puls}$, kann Licht ihn nicht überholen.
+    Das Licht wird "gefangen" - es entsteht ein **optischer Ereignishorizont**.
+* **Bedeutung:** Dies ist die Laborversion eines Schwarzen Lochs.
+    Das "aufgestaute" Licht am Horizont ist das optische Analogon zur **Hawking-Strahlung**.
+* **5D-Verbindung:** Die extreme Kompression der 5. Dimension ($\Phi \to 0$) entspricht der Singularität.
+
 ---
 
 ## 5. Astrophysik (Dark Matter)

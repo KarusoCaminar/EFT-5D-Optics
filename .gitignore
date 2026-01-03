@@ -9,6 +9,9 @@ images/*.png
 # MP4s are small enough for GitHub
 # (They are included by default since folder is not ignored)
 
+# Generated HTML Report (Too large for GitHub - 370MB)
+QRS_Final_Report.html
+
 
 # VS Code
 .vscode/
