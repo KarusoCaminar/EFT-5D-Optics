@@ -1,6 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import sys
+import os
+
+# Robust Import
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from modules.physics_engine import PhysicsEngine
 
 def run_lattice_schematic():
@@ -14,7 +19,6 @@ def run_lattice_schematic():
     n_sapphire = 1.77
     
     # 5D Radius derived CORRECTLY from theory (V4.2 Universal)
-    # Old hardcoded value was 0.86. New calculated value should be ~0.99
     m_eff = engine.SCALING_FACTOR_K * (n_sapphire**2)
     R_5d = engine.H_BAR_C / m_eff
     
@@ -63,8 +67,10 @@ def run_lattice_schematic():
     ax.annotate("", xy=p_edge, xytext=p_center, arrowprops=dict(arrowstyle="->", color='red', lw=2))
     
     ratio = R_5d / a
+    # V4.2 Correction: Ratio is now ~2.08, not 1.8. 
+    # Logic: The resonance is with the 2nd Harmonic (N=2), so R ~ 2a.
     ax.text((p_center[0]+p_edge[0])/2 - 0.2, (p_center[1]+p_edge[1])/2 + 0.1, 
-            f"$R_{{5D}}/a \\approx {ratio:.2f}$", color='red', fontweight='bold')
+            f"$R_{{5D}}/a \\approx {ratio:.2f} (N \\approx 2)$", color='red', fontweight='bold')
 
     ax.set_aspect('equal')
     ax.set_title("Geometric Validation: The 5D Mode fits the Crystal Lattice (Universal K)")
@@ -75,8 +81,10 @@ def run_lattice_schematic():
     ax.legend(loc='upper right')
     ax.grid(True, alpha=0.2)
     
-    plt.savefig('images/plots/lattice_schematic.png', dpi=150)
-    print("Schematic saved to 'images/plots/lattice_schematic.png'")
+    os.makedirs("images/plots", exist_ok=True)
+    out_path = os.path.join("images", "plots", "lattice_schematic.png")
+    plt.savefig(out_path, dpi=150)
+    print(f"Schematic saved to '{out_path}'")
 
 if __name__ == "__main__":
     run_lattice_schematic()
