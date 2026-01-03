@@ -213,6 +213,25 @@ def generate_report():
             </div>
         </div>
 
+        <div class="section">
+            <h2>6. Kritische Diskussion & Grenzen der Theorie (EFT Check)</h2>
+            <div class="callout" style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px;">
+                <strong>Wissenschaftliche Ehrlichkeit:</strong> Jede Theorie hat Grenzen. Als "Effektive Feldtheorie" (EFT) machen wir folgende Annahmen transparent:
+            </div>
+            
+            <h3>6.1 Der Parameter K (Zirkelschluss vs. Kalibrierung)</h3>
+            <p><strong>Kritik:</strong> Wir haben $K=63.5$ so gewählt, dass Silizium passt. Das ist keine unabhängige Herleitung.</p>
+            <p><strong>Antwort:</strong> Korrekt. In unserer EFT ist $K$ ein <strong>phänomenologischer Parameter</strong> (wie das Elastizitätsmodul in der Mechanik). Wir kalibrieren an Silizium und testen an Saphir. Der Erfolg bei Saphir (Ratio 2.08) bestätigt die Konsistenz, auch wenn $K$ empirisch ist.</p>
+
+            <h3>6.2 Die Phononen-Näherung (UV vs. IR)</h3>
+            <p><strong>Kritik:</strong> Wir vernachlässigen Gitterschwingungen (Phononen), die z.B. bei NaCl wichtig sind.</p>
+            <p><strong>Antwort:</strong> Unsere Theorie ist eine <strong>UV/VIS-Näherung</strong> ($E \gg E_{{phonon}}$). Sie beschreibt die elektronische Reaktion der Raumzeit. Für weiche Kristalle wie NaCl reicht das einfache Modell nicht aus – hier dominieren Phononen, die wir aktuell ausklammern.</p>
+
+            <h3>6.3 Effektive Masse</h3>
+            <p><strong>Kritik:</strong> Die berechnete "5D-Masse" entspricht nicht der Bandlücke.</p>
+            <p><strong>Antwort:</strong> Wir berechnen eine topologische "Quasiteilchen-Masse" (das Gewicht der Raumzeit-Welle), nicht die energetische Anregung eines einzelnen Elektrons. Es ist ein kollektiver Effekt.</p>
+        </div>
+
     </body>
     </html>
     """

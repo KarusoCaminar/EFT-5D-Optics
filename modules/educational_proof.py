@@ -48,6 +48,10 @@ def run_educational_proof():
     print("   QRS PROJEKT - DAS MATHEMATISCHE PROTOKOLL (Version 4.2)")
     print("   Ein Schritt-für-Schritt Beweis der 5D-Optik")
     print("======================================================================\n")
+    print("--- 3. Der Numerische Beweis ---")
+    print("Assumption 1: High-Frequency Limit (UV/VIS). Phonons neglected.")
+    print("Assumption 2: Calibration K=63.5 is empirical (Silicon-Gauge).")
+    print("-" * 40)
     print("ZIEL: Wir berechnen die Größe der 5. Dimension aus der Farbe von Licht.")
     print("      Dann prüfen wir, ob diese Größe in einen Saphir-Kristall passt.")
 
