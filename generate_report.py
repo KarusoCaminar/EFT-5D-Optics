@@ -167,9 +167,10 @@ def generate_report():
             <div class="visual-card">
                 <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images['tower'])}" /></div>
                 <div class="visual-desc">
-                    <h4>3.2 Der Kaluza-Klein Turm (Vorhersage)</h4>
-                    <p><strong>Prognose:</strong> Wenn die 5. Dimension real ist, muss es höhere Anregungszustände geben (wie Obertöne einer Geige).</p>
-                    <p><strong>Werte (V4.2):</strong> Wir erwarten Absorptionslinien bei <strong>398 eV</strong> und <strong>597 eV</strong> (Soft X-Ray).</p>
+                <div class="visual-desc">
+                    <h4>3.2 Der EFT Cutoff (Die Grenze der Geometrie)</h4>
+                    <p><strong>Neue Interpretation (V4.3):</strong> Die 229 eV (bzw. 398 eV) sind <strong>keine</strong> Resonanz, sondern der <strong>UV-Cutoff ($\Lambda$)</strong>.</p>
+                    <p><strong>Bedeutung:</strong> Bis zu dieser Energie gilt unsere geometrische Beschreibung. Darüber hinaus bricht die effektive Theorie zusammen. Die optische Dispersion wird durch ein leichteres Feld ($m_\chi \approx 8.8$ eV) getrieben.</p>
                 </div>
             </div>
         </div>
@@ -227,9 +228,9 @@ def generate_report():
             <p><strong>Kritik:</strong> Wir vernachlässigen Gitterschwingungen (Phononen), die z.B. bei NaCl wichtig sind.</p>
             <p><strong>Antwort:</strong> Unsere Theorie ist eine <strong>UV/VIS-Näherung</strong> ($E \gg E_{{phonon}}$). Sie beschreibt die elektronische Reaktion der Raumzeit. Für weiche Kristalle wie NaCl reicht das einfache Modell nicht aus – hier dominieren Phononen, die wir aktuell ausklammern.</p>
 
-            <h3>6.3 Effektive Masse</h3>
-            <p><strong>Kritik:</strong> Die berechnete "5D-Masse" entspricht nicht der Bandlücke.</p>
-            <p><strong>Antwort:</strong> Wir berechnen eine topologische "Quasiteilchen-Masse" (das Gewicht der Raumzeit-Welle), nicht die energetische Anregung eines einzelnen Elektrons. Es ist ein kollektiver Effekt.</p>
+            <h3>6.3 Effektive Masse vs. Bandlücke</h3>
+            <p><strong>Kritik:</strong> Die berechnete "5D-Masse" (~200 eV) passt nicht zur Bandlücke (~9 eV).</p>
+            <p><strong>Lösung (V4.3):</strong> Wir interpretieren die 200 eV jetzt als <strong>EFT-Cutoff $\Lambda$</strong> (die Obergrenze des Modells). Die Bandlücke wird durch ein leichtes Skalarfeld ($m_\chi$) erzeugt, das im Vakuum fast masselos ist.</p>
         </div>
 
     </body>

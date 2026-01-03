@@ -53,19 +53,42 @@ def run_kk_tower_analysis():
     # --- 3. Visualisierung ---
     plt.figure(figsize=(12, 6))
     
-    # Plot 1: Der Turm (Spektrum)
-    plt.subplot(1, 2, 1)
+    # Plotting the Tower
+    plt.subplot(1, 2, 1) # Keep subplot for consistency with the second plot
+    
     ns = [x[0] for x in tower]
     ms = [x[1] for x in tower]
-    bars = plt.bar(ns, ms, color='darkblue', alpha=0.7)
-    plt.title(f"Der Kaluza-Klein Turm (Saphir)\nGround State m1 = {m1_eV:.1f} eV", fontsize=12)
-    plt.xlabel("Mode $n$ (Quantenzahl)")
-    plt.ylabel("Effektive Masse / Energie (eV)")
-    plt.grid(True, axis='y', alpha=0.3)
+    
+    # Plot levels
+    for n_idx, energy in enumerate(ms):
+        mode_label = n_idx + 1
+        label_text = f"Mode {mode_label}"
+        color = 'blue'
+        
+        if mode_label == 1:
+            label_text = f"EFT Cutoff $\Lambda$ ({energy:.1f} eV)"
+            color = 'red'
+        elif mode_label == 2:
+            label_text = f"2nd Harmonic ({energy:.1f} eV)"
+        
+        plt.hlines(energy, 0, 1, colors=color, linestyles='solid', linewidth=2)
+        plt.text(1.02, energy, label_text, verticalalignment='center', fontsize=10, color=color)
+
+    plt.title(f"V4.3 Prediction: 5D-EFT Energy Scales (Sapphire)\n$\Lambda \approx {m1_eV:.1f}$ eV (Validity Limit)", fontsize=12)
+    plt.ylabel("Energy (eV)")
+    plt.xlabel("Topological Mode Index")
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.xticks([]) # Hide x-axis ticks
+    plt.xlim(0, 1.3)
+    
+    # Annotation for experimentalists
+    plt.text(0.1, ms[0] - (ms[1]-ms[0])*0.3, 
+             "NOTE: 229 eV is not a resonance,\nbut the model's UV-Cutoff scale.", 
+             bbox=dict(facecolor='yellow', alpha=0.2))
     
     print("\n[VORHERSAGE] Predicted Kaluza-Klein Resonances:")
     for n, m in zip(ns, ms):
-        plt.text(n, m + 15, f"{m:.0f} eV", ha='center', fontweight='bold', fontsize=9)
+        # The text for the bar plot is removed as it's replaced by hlines text
         print(f"Mode n={n}: {m:.1f} eV")
     
     # Plot 2: Einstein & Geschwindigkeit

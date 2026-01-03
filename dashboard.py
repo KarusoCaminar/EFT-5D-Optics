@@ -122,7 +122,12 @@ def run_batch_simulation():
     run_module("interactive_cloaking.py", "13. Cloaking Simulation", "cloaking_simulation_result.png", ["--batch"])
     run_module("optical_black_hole.py", "14. Optical Black Hole", "optical_black_hole.png")
 
-    # 6. Report Generation
+    # 6. Protocol
+    run_module("educational_proof.py", "15. Scientific Protocol Gen", "Math_for_Humans.txt")
+    if os.path.exists("Math_for_Humans.txt") and not os.path.exists(os.path.join("docs", "Math_for_Humans.txt")):
+         shutil.move("Math_for_Humans.txt", os.path.join("docs", "Math_for_Humans.txt"))
+
+    # 7. Report Generation
     print("\n[EXEC] Running Final Report Generator...")
     cmd = ["python", "generate_report.py"]
     res = subprocess.run(cmd, capture_output=True, text=True)

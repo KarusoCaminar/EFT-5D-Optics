@@ -20,12 +20,12 @@ It does *not* claim to derive the Standard Model from scratch. Instead, it propo
 ### Critique B: "Neglecting Phonons (IR Resonances)."
 
 * **Critique:** Materials like NaCl have strong IR dispersion due to lattice vibrations. You ignore this.
-* **Defense:** We explicitly work in the **High-Frequency Limit** ($E_{photon} \gg E_{phonon}$). Our model describes the *electronic* curvature of spacetime. For "hard" crystals (Diamond, Sapphire, Silicon), the Phonon contribution in the visible range is negligible compared to the electronic response. For "soft" ionic crystals (NaCl), the model is indeed an oversimplification. This is a standard EFT domain restriction.
+* **Defense:** We explicitly work in the **High-Frequency Limit** ($E_{photon} \gg E_{phonon}$). Our model describes the *electronic* curvature of spacetime. The 229 eV scale is the **UV-Cutoff ($\Lambda$)** of the geometric theory. Below this scale, light scalar fields ($m_\chi \approx 8.8$ eV) dominating dispersion, while Phonons dominate in the IR.
 
-### Critique C: "Mass Interpretation."
+### Critique C: "Mass Interpretation vs Bandgap."
 
-* **Critique:** Your calculated mass (~200 eV) doesn't match the Bandgap (~10 eV).
-* **Defense:** The "5D-Mass" ($m_{eff}$) is a measure of **geometric inertia** (Kaluza-Klein momentum), not the single-particle excitation energy. It represents the "stiffnes" of the vacuum within the lattice.
+* **Critique:** Your calculated mass (~200 eV) doesn't match the Bandgap (~9 eV).
+* **Defense:** The value calculated (~200 eV) is **NOT the mass of the optical carrier**. It is the **EFT Cutoff Scale $\Lambda$**. It represents the energy where the 5D geometry becomes granular (comparable to the lattice spacing). The optical dispersion is driven by a much lighter field ($m_\chi \sim E_{gap}$), consistent with standard solid state physics.
 
 ---
 
