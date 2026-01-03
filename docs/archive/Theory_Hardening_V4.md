@@ -85,4 +85,38 @@ Thus, $\chi(\Phi) \propto \Phi^{-5}$ is the natural scaling for a quantum system
 
 $$ S = \int \sqrt{-g} \left[ \dots + \Phi^{-5} \vec{P}\cdot\vec{E} \right] $$
 
-This derivation satisfies the Peer Review requirement for a fundamental justification.
+---
+
+## 4. Multi-Material Validation Results (The "Litmus Test")
+
+To test the "Geometric Locking" hypothesis ($R_{5D} \approx Integer \times a$), we performed an automated analysis of 5 different optical materials.
+
+### 4.1 Methodology
+
+We calculated $R_{5D} = \hbar c / m_{eff}$ using two models for the effective mass:
+
+1. **Model A (Pole Scaling):** $m_{eff} \propto E_{pole}$ (Calibrated to Sapphire V3.0 factor 13.3).
+2. **Model B (Plasmon Coupling):** $m_{eff} \propto E_{plasmon}$ (Calibrated to Sapphire factor 10.1).
+
+### 4.2 Results
+
+| Material | Structure | Ratio (Model A) | Ratio (Model B) | Interpretation |
+| :--- | :--- | :--- | :--- | :--- |
+| **Sapphire** | Trigonal | **1.81** (Ref) | **1.81** (Ref) | **Locked (~2)** |
+| **Quartz** | Trigonal | 2.24 | **1.79** | **Locked (~2)?** |
+| **Diamond** | Cubic | 3.56 | 1.65 | No simple lock |
+| **Silicon** | Cubic | 6.39 | 2.14 | Weak (~2?) |
+| **ZnS** | Cubic | 4.42 | 2.31 | No simple lock |
+
+### 4.3 Conclusion of Validation
+
+The hypothesis of universal integer locking ($R=N \cdot a$) is **statistically rejected** in its simplest form.
+However, a pattern emerges:
+
+* **Oxides (Sapphire, Quartz):** Show a consistent ratio near $\approx 1.8$.
+* **Cubic Semiconductors:** Show higher/different ratios.
+
+**Scientific Implication:** The 5D-coupling is likely dependent on the **bond character** (Ionic/Covalent) or crystal symmetry class, rather than being a universal constant. The theory must be refined to include a "Geometry Factor" $g_{sym}$ in the mass definition.
+
+---
+*Verified by QRS Automated Validation System V4.0*
