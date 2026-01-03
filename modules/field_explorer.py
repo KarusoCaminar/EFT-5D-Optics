@@ -88,8 +88,17 @@ def run_field_explorer():
         im2.set_data(e_current)
         return [im2]
     
+    def init():
+        """Reset simulation to initial state - ensures animation starts from frame 0."""
+        nonlocal e_current, e_prev, e_next
+        e_current = np.zeros((SIZE, SIZE))
+        e_prev = np.zeros((SIZE, SIZE))
+        e_next = np.zeros((SIZE, SIZE))
+        im2.set_data(e_current)
+        return [im2]
+    
     frames = 500
-    anim = FuncAnimation(fig, update, frames=frames, interval=30, blit=True)
+    anim = FuncAnimation(fig, update, frames=frames, interval=30, blit=True, init_func=init)
     
     # Save Logic
     if "--batch" in sys.argv:

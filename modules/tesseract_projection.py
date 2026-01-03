@@ -106,8 +106,15 @@ def update(frame):
 
     return lines + [points_plot]
 
+def init():
+    """Initialize animation state - ensures animation starts from frame 0."""
+    points_plot.set_data([], [])
+    for line in lines:
+        line.set_data([], [])
+    return lines + [points_plot]
+
 print("Generiere Animation... (Das kann paar Sekunden dauern)")
-anim = FuncAnimation(fig, update, frames=200, interval=20, blit=True)
+anim = FuncAnimation(fig, update, frames=200, interval=20, blit=True, init_func=init)
 
 # Save as GIF for documentation
 try:

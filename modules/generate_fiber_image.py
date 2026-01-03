@@ -77,10 +77,18 @@ def update(frame):
     im2.set_data(e_current)
     return [im2]
 
-# Create Animation
+def init():
+    """Reset simulation to initial state - ensures animation starts from frame 0."""
+    global e_current, e_prev, e_next
+    e_current = np.zeros((SIZE, SIZE))
+    e_prev = np.zeros((SIZE, SIZE))
+    e_next = np.zeros((SIZE, SIZE))
+    im2.set_data(e_current)
+    return [im2]
+
+# Create Animation with init_func
 print("Generating fiber animation...")
-# 500 Frames to show bouncing
-anim = FuncAnimation(fig, update, frames=450, interval=20, blit=True)
+anim = FuncAnimation(fig, update, frames=450, interval=20, blit=True, init_func=init)
 
 # Ensure images dir exists
 os.makedirs("images", exist_ok=True)
