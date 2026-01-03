@@ -103,6 +103,22 @@ ZIEL: Wir zeigen, dass Brechung nicht durch Gravitation (zu schwach),
     exakt so abflacht, wie wir es beobachten.
   • Wichtig: Dies ist eine Hypothese, kein Beweis. Aber sie ist vielversprechend.
 
+>>> SCHRITT 9: Lorentz-Kraft (Magnetismus als Geometrie)
+--------------------------------------------------
+  • Simulation: `lorentz_proof.py`
+  • Die Lorentz-Kraft F = q(v × B) ist KEIN echtes Kraftgesetz.
+  • In 5D bewegt sich das Teilchen geradeaus (Geodäte).
+  • Die "Ladung" q ist der Impuls p5 in der 5. Dimension.
+  • Ergebnis: Magnetismus ist ein Trägheitseffekt der 5D-Projektion.
+
+>>> SCHRITT 10: Optisches Schwarzes Loch (Analog Gravity)
+--------------------------------------------------
+  • Simulation: `optical_black_hole.py`
+  • Ein Kerr-Impuls ändert n(x,t) so stark, dass c/n < v_Puls.
+  • Licht kann den Puls nicht überholen → Ereignishorizont.
+  • Die 5D-Interpretation: Φ → 0 entspricht der Singularität.
+  • Ergebnis: Hawking-Strahlung im Labor simuliert.
+
 ######################################################################
   G. DIE PHYSIK-BRÜCKE (MAXWELL & EPSILON)
 ######################################################################
@@ -125,6 +141,7 @@ ZIEL: Wir zeigen, dass Brechung nicht durch Gravitation (zu schwach),
     simulieren (FDTD), keine simple Strahlenoptik.
 
 ======================================================================
- FAZIT (V3.0): Materie krümmt die 5. Dimension durch elektrische
+ FAZIT (V4.0): Materie krümmt die 5. Dimension durch elektrische
                Polarisation. Ein Kristall ist ein Zustand der Raumzeit.
+               Magnetismus UND Gravitation sind geometrische Effekte.
 ======================================================================

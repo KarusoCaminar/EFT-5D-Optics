@@ -20,30 +20,33 @@ def generate_report():
         "quantum_ring": "images/quantum_ring_visualization.png",
         # Matter
         "lattice": "images/lattice_schematic.png",
-        "lattice_corr": "images/lattice_correlation.png", # Added back
+        "lattice_corr": "images/lattice_correlation.png",
         "momentum": "images/momentum_transfer.png",
         # Proof
         "dispersion": "images/dispersion_validation.png",
-        "field": "images/field_explorer.gif",
+        "field": "images/field_explorer_snapshot.png",  # Use PNG for PDF
         "tower": "images/kk_tower_spectrum.png",
         # Experiment
         "tensor": "images/tensor_simulation_results.png",
-        "noise_raw": "images/quantum_refractometer_results_v2.png", # NEW
-        "noise_temp": "images/quantum_refractometer_temperature.png", # NEW
+        "noise_raw": "images/quantum_refractometer_results_v2.png",
+        "noise_temp": "images/quantum_refractometer_temperature.png",
         "spatial": "images/spatial_averaging.png",
         "cavity": "images/cavity_response.png",
         "snr": "images/sensitivity_snr.png",
         "validation": "images/real_data_validation.png",
-        "cloaking": "images/cloaking_simulation.gif",
-        "prism": "images/prism_simulation.gif",
-        "fiber": "images/fiber_simulation.gif",
+        "cloaking": "images/cloaking_simulation_result.png",  # Use PNG
+        "prism": "images/prism_simulation.png",  # Use PNG
+        "fiber": "images/fiber_simulation.png",  # Use PNG
         "galaxy": "images/galactic_rotation.png",
         "raytrace": "images/raytracing_procedural.png",
         "conoscopy": "images/experiment_conoscopy.png",
         "locking": "images/experiment_locking.png",
         "kagra": "images/experiment_kagra.png",
         "kagra_noise": "images/kagra_noise_prediction.png",
-        "light_geo": "images/light_as_geometry.png"
+        "light_geo": "images/light_as_geometry.png",
+        # NEW: Fundamental Forces
+        "lorentz": "images/lorentz_proof.png",
+        "black_hole": "images/optical_black_hole.png"
     }
     
     # HTML Header & Style (Optimized for Screen & A4 Print)
@@ -352,7 +355,41 @@ def generate_report():
 
 
     
-    # CHAPTER 9: COSMOLOGY (Dark Matter)
+    # CHAPTER 9: FUNDAMENTAL FORCES (Lorentz + Black Hole)
+    chap_forces = f"""
+        <div class="section">
+            <h2>9. Fundamentale Kräfte: Von Maxwell bis Hawking</h2>
+            <p>Die 5D-Theorie erklärt nicht nur Optik, sondern auch Elektromagnetismus und extreme Gravitation.</p>
+            
+            <div class="visual-card">
+                <div class="visual-img">
+                    <img src="data:image/png;base64,{get_image_base64(images['lorentz'])}" />
+                </div>
+                <div class="visual-desc">
+                    <h4>Beweis: Magnetismus ist Geometrie</h4>
+                    <p><strong>Code:</strong> <code>modules/lorentz_proof.py</code></p>
+                    <p><strong>Die Physik:</strong> Die Lorentz-Kraft F = q(v × B) erscheint nur, wenn wir von 5D auf 4D projizieren.</p>
+                    <p><strong>Das Ergebnis:</strong> Ein Teilchen, das sich in 5D geradeaus bewegt, zieht in 4D Kreise (Zyklotron). Die "Ladung" q ist der Impuls in der 5. Dimension.</p>
+                    <p><strong>Bedeutung:</strong> Magnetismus ist keine "echte" Kraft, sondern ein geometrischer Trägheitseffekt.</p>
+                </div>
+            </div>
+            
+            <div class="visual-card">
+                <div class="visual-img">
+                    <img src="data:image/png;base64,{get_image_base64(images['black_hole'])}" />
+                </div>
+                <div class="visual-desc">
+                    <h4>Optisches Schwarzes Loch (Analog Gravity)</h4>
+                    <p><strong>Code:</strong> <code>modules/optical_black_hole.py</code></p>
+                    <p><strong>Das Experiment:</strong> Ein intensiver Laserpuls ändert n(x,t) via Kerr-Effekt. Wenn c/n < v_Puls, entsteht ein Ereignishorizont.</p>
+                    <p><strong>Das Ergebnis:</strong> Licht kann den Puls nicht überholen - es staut sich auf (gelbe Wellen vor der weißen Linie).</p>
+                    <p><strong>5D-Interpretation:</strong> Die 5. Dimension wird so stark komprimiert (Φ → 0), dass die Raumzeit "reißt". Dies ist das optische Analogon zur Hawking-Strahlung.</p>
+                </div>
+            </div>
+        </div>
+    """
+
+    # CHAPTER 10: COSMOLOGY (Dark Matter)
     chap_cosmo = f"""
         <div class="section">
             <h2>9. Astrophysik: Eine Hypothese zu Dunkler Materie</h2>
@@ -470,9 +507,10 @@ def generate_report():
                  chap_cloaking + \
                  chap_prism + \
                  chap_fiber + \
+                 chap_forces + \
+                 chap_cosmo + \
                  chap_cgi + \
                  chap_val + \
-                 chap_cosmo + \
                  chap_refs + \
                  "</body></html>"
     
