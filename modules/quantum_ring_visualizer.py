@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 import sys
+import os
 
 # --- Physik ---
 # Wir simulieren eine Welle auf einem geschlossenen Ring (5. Dimension)
@@ -79,10 +80,12 @@ def run_visualization():
 
     # Check for batch mode
     if "--batch" in sys.argv:
-        # Generate a stable state for the snapshot
+        # Generate a stable state for the snapshot (N=3.0 is visual appealing)
         update_plot(3.0) 
-        plt.savefig('quantum_ring_visualization.png')
-        print("Snapshot saved to 'quantum_ring_visualization.png'")
+        os.makedirs("images/plots", exist_ok=True)
+        out_path = os.path.join("images", "plots", "quantum_ring_visualization.png")
+        plt.savefig(out_path, dpi=150)
+        print(f"Snapshot saved to '{out_path}'")
     else:
         plt.show()
 
