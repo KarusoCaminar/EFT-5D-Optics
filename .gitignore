@@ -4,14 +4,18 @@ __pycache__/
 *$py.class
 
 # Generated Images (Large files stay LOCAL only)
-images/*.gif
-images/*.png
-# MP4s are small enough for GitHub
-# (They are included by default since folder is not ignored)
+**/*.gif
+
+# Allow PNGs for documentation plots (they are small)
+!images/plots/*.png
+!images/*.png
+
+# MP4s are small enough for GitHub and preferred
+**/*.mp4
 
 # Generated HTML Report (Too large for GitHub - 370MB)
 QRS_Final_Report.html
-
+*.html
 
 # VS Code
 .vscode/
