@@ -2,6 +2,11 @@
 
 Dieses Dokument ist der vollständige technische Begleiter zum Code. Es erklärt für jedes Modul: **Was** wird simuliert, **Warum** wir es tun, **Wie** (die Mathematik/Formel), und welche **Parameter** verwendet wurden.
 
+> [!NOTE]
+> **Für die vollständige mathematische Theorie siehe:** [Unified_Theory_V3.md](Unified_Theory_V3.md)
+>
+> Dort wird bewiesen, dass alle Kräfte und Materieeigenschaften aus dem 5D-Metriktensor $G_{AB}$ emergieren.
+
 ---
 
 ## 0. Die Physikalische Intuition (Vorwort)
@@ -12,6 +17,12 @@ Bevor wir in die Formeln gehen: Warum rauscht das Vakuum in unseren Simulationen
 * **Der Wind:** Das Vakuum ist voll von chaotischen Quantenfluktuationen ("Windstöße").
 * **Der Ton:** Wenn der Wind die Glocke trifft, vibriert sie nicht chaotisch, sondern in ihrer **Eigenfrequenz**.
 * **Das Ergebnis:** Unser Experiment misst diesen "Ton" (die Resonanzmasse bei 15 THz). Ein klassisches Vakuum wäre still; unser geometrisches Vakuum "summt".
+
+**Die Fundamentale Identität (Der Schlüssel zu allem):**
+
+$$\boxed{n(x) = \frac{1}{\Phi(x)}}$$
+
+Der Brechungsindex $n$ ist der **Kehrwert** des Skalarfeldes $\Phi$ (Größe der 5. Dimension). Materie komprimiert die 5. Dimension ($\Phi < 1$), daher $n > 1$.
 
 ---
 

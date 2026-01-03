@@ -90,5 +90,44 @@ def run_engineering_application():
         print(f"RESULT: THERMAL DOMINATED. Heat is {1/ratio:.1f}x stronger than 5D effects.")
         print("Insight: To measure 5D, you must use PULSED lasers (femtosecond) to avoid heat accumulation.")
 
+    # --- VISUALIZATION ---
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    
+    # Plot 1: Frequency Domains (ET Detector)
+    freqs = np.logspace(0, 16, 100)
+    suppression_curve = (freqs / f_res)**2
+    suppression_curve[suppression_curve > 1] = 1
+    
+    ax1.loglog(freqs, suppression_curve, 'b-', lw=2, label='5D Noise Suppression')
+    ax1.axvline(100, color='r', ls='--', label='GW Detection (100 Hz)')
+    ax1.axvline(f_res, color='g', ls='--', label=f'5D Resonance ({f_res:.0e} Hz)')
+    ax1.set_xlabel("Frequency (Hz)")
+    ax1.set_ylabel("Relative Noise Amplitude")
+    ax1.set_title("Einstein Telescope: Why 5D Noise is Harmless")
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+    ax1.set_xlim(1, 1e17)
+    
+    # Plot 2: Laser Intensity vs. Index Shift
+    intensities = np.linspace(0, 200, 100)  # GW/m^2
+    delta_n_5d = n2 * intensities * 1e9  # Convert GW to W
+    delta_n_therm = np.ones_like(intensities) * delta_n_thermal
+    
+    ax2.semilogy(intensities, delta_n_5d, 'b-', lw=2, label='5D (Kerr) Effect')
+    ax2.semilogy(intensities, delta_n_therm, 'r--', lw=2, label='Thermal Effect (10K rise)')
+    ax2.set_xlabel("Laser Intensity (GW/m²)")
+    ax2.set_ylabel("Index Shift Δn")
+    ax2.set_title("High-Power Laser: 5D vs. Thermal Effects")
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    
+    import os
+    os.makedirs("images", exist_ok=True)
+    plt.savefig("images/engineering_applications.png", dpi=150)
+    print(f"\nVisualization saved to images/engineering_applications.png")
+    plt.close()
+
 if __name__ == "__main__":
     run_engineering_application()
