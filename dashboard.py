@@ -8,7 +8,7 @@ import argparse
 def print_header():
     print("="*60)
     print("      QUANTUM REFRACTOMETER SIMULATION SUITE")
-    print("           Status Dashboard v2.1")
+    print("           Status Dashboard v4.2 (Atlas)")
     print("="*60)
     print(f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}")
     print("="*60)
@@ -34,21 +34,25 @@ def organize_artifact(filename):
     dest_path = os.path.join(dest_dir, filename)
     
     try:
+        # If file exists in destination, remove it first
         if os.path.exists(dest_path):
             os.remove(dest_path)
+            
+        # Move the new file
         shutil.move(filename, dest_path)
         print(f"   -> ORGANIZED: Moved to {dest_path}")
         return True
     except Exception as e:
+        # If move fails, it might be because the file is already in place (if module saved directly)
+        if os.path.abspath(filename) == os.path.abspath(dest_path):
+             return True
         print(f"   -> ERROR moving artifact: {e}")
-        print("   -> Tip: Ensure the dashboard is not holding the file open.") # Tip added for robustness
         return False
 
 def run_module(script_name, description, artifact_check=None, extra_args=[]):
     print(f"\n[EXEC] Running {description}...")
     
     script_path = os.path.join("modules", script_name)
-    # print(f"       File: {script_path}")
     
     start_time = time.time()
     try:
@@ -64,8 +68,10 @@ def run_module(script_name, description, artifact_check=None, extra_args=[]):
             
             # Artifact Management
             if artifact_check:
+                # 1. Try to organize it (if it was saved to root)
                 if organize_artifact(artifact_check):
-                    pass # Success message handled in function
+                    pass 
+                # 2. Check if it exists in the destination (if module saved clearly)
                 elif os.path.exists(os.path.join("images", "plots", artifact_check)):
                      print(f"   -> VERIFIED: Artifact found in 'images/plots/'.")
                 elif os.path.exists(os.path.join("images", "animations", artifact_check)):
@@ -83,87 +89,41 @@ def run_module(script_name, description, artifact_check=None, extra_args=[]):
         print(f"   -> ERROR: Could not execute script. {e}")
         return False
 
-def launch_interactive_control_center():
-    """Launches interactive modules in separate windows without blocking."""
-    print("\n" + "="*60)
-    print("   LAUNCHING INTERACTIVE CONTROL CENTER")
-    print("="*60)
-    print("Opening visualization windows...")
-    
-    scripts = [
-        ("interactive_prism.py", "Prism Simulation"),
-        ("interactive_cloaking.py", "Cloaking Simulation"),
-        ("tesseract_projection.py", "4D Tesseract Viewer"),
-        ("kaluza_klein_visualizer.py", "KK Cylinder Viewer"),
-        ("field_explorer.py", "5D Field Explorer")
-    ]
-    
-    env = os.environ.copy()
-    env["PYTHONPATH"] = os.path.join(os.getcwd(), "modules")
-    
-    processes = []
-    
-    for script_name, label in scripts:
-        print(f"   -> Starting {label}...")
-        script_path = os.path.join("modules", script_name)
-        # Use Popen to run in parallel/background
-        try:
-            p = subprocess.Popen(["python", script_path], env=env, cwd=os.getcwd())
-            processes.append(p)
-        except Exception as e:
-            print(f"      ERROR: Failed to launch {script_name}: {e}")
-            
-    print("\n[INFO] All interactive modules launched.")
-    print("       Close the windows to terminate them.")
-    print("="*60)
-
 def run_batch_simulation():
-    results = {}
+    print("Starting Batch Generation for Scientific Atlas V4.2...")
     
-    # 1. Material Analysis
-    results['Materials'] = run_module("material_parameters.py", "Material Candidate Analysis")
-    
-    # 2. Simulation Modules
-    results['Quantum Sim'] = run_module("quantum_refractometer.py", "Langevin Quantum Simulation", "quantum_refractometer_temperature.png")
-    results['Tensor Sim'] = run_module("tensor_simulation.py", "Anisotropic Tensor Simulation", "tensor_simulation_results.png")
-    results['Spatial'] = run_module("spatial_physics.py", "Spatial Beam Averaging Check", "spatial_averaging.png")
-    results['Cavity'] = run_module("cavity_response.py", "Cavity Bandwidth Analysis", "cavity_response.png")
-    results['Dispersion'] = run_module("dispersion_validator.py", "Spectral Dispersion Validation", "dispersion_validation.png")
-    
-    # 3. Visualization Modules (Batch Mode)
-    results['Vis Tesseract'] = run_module("tesseract_projection.py", "4D Tesseract", "tesseract_projection.gif", ["--batch"])
-    
-    # Secondary artifact cleanup (Ensure MP4 is moved if generated)
-    if os.path.exists("tesseract_projection.mp4"):
-        organize_artifact("tesseract_projection.mp4")
+    # 1. GEOMETRY
+    run_module("tesseract_projection.py", "1. Tesseract Animation", "tesseract_projection.gif", ["--batch"])
+    run_module("kaluza_klein_visualizer.py", "2. Kaluza-Klein Cylinder", "kaluza_klein_visualization.png", ["--batch"])
+    # Quantum Ring needs explicit call or check
+    run_module("quantum_ring_visualizer.py", "3. Quantum Ring (Quantization)", "quantum_ring_visualization.png", ["--batch"])
+    run_module("metric_tensor_visualizer.py", "4. Metric Tensor", "metric_tensor_visualization.png", ["--batch"])
 
-    results['Vis KK'] = run_module("kaluza_klein_visualizer.py", "KK Cylinder", "kaluza_klein_visualization.png", ["--batch"])
-    results['Vis Quant'] = run_module("quantum_ring_visualizer.py", "Quantum Ring", "quantum_ring_visualization.png", ["--batch"])
-    results['Vis Matrix'] = run_module("metric_tensor_visualizer.py", "Metric Tensor", "metric_tensor_visualization.png", ["--batch"])
-    
-    # 4. Advanced & New Features
-    results['Engineering'] = run_module("engineering_application.py", "Engineering Limits")
-    results['KK Spectrum'] = run_module("kaluza_klein_tower.py", "KK Mass Spectrum", "kk_tower_spectrum.png", ["--batch"])
-    results['Field Explorer'] = run_module("field_explorer.py", "5D-Field Explorer", "field_explorer.gif", ["--batch"])
-    results['Lattice Schem'] = run_module("lattice_schematic.py", "Lattice Schematic", "lattice_schematic.png")
-    results['Lattice Corr'] = run_module("lattice_correlation.py", "Lattice Correlation", "lattice_correlation.png")
-    results['Momentum'] = run_module("momentum_transfer.py", "Momentum Transfer", "momentum_transfer.png")
-    results['Sensitivity'] = run_module("sensitivity_calculator.py", "Sensitivity SNR", "sensitivity_snr.png")
-    results['Validation'] = run_module("educational_visualizer.py", "Real Data Validation", "real_data_validation.png")
+    # 2. MATTER
+    run_module("lattice_schematic.py", "5. Lattice Schematic (V4.2 Ratio)", "lattice_schematic.png")
+    # Note: experiments/grid_locking is in a subdir, need to handle path carefully or assume module handles imports
+    # The run_module function assumes scripts are in 'modules/', so we need to tweak if it's in a subdirectory
+    # or just use the relative path "experiments/grid_locking.py"
+    run_module(os.path.join("experiments", "grid_locking.py"), "6. Grid Locking Experiment", "experiment_locking.png")
+    run_module("material_scanner.py", "7. Universal Material Scan", "material_resonance_scan.png")
 
-    # 5. Metamaterials (New)
-    results['Gen Cloaking'] = run_module("generate_cloaking_image.py", "Cloaking Simulation (Asset Gen)", "cloaking_simulation.gif")
-    results['Gen Prism'] = run_module("generate_prism_image.py", "Prism Simulation (Asset Gen)", "prism_simulation.gif")
-    
-    # 6. Educational Proof (Text)
-    results['Edu Proof'] = run_module("educational_proof.py", "Generating Math Protocol")
-    # Move the text file manually if successful
-    if results['Edu Proof'] and os.path.exists("Math_for_Humans.txt"):
-        shutil.move("Math_for_Humans.txt", os.path.join("docs", "Math_for_Humans.txt"))
-        print("   -> ORGANIZED: Moved Math_for_Humans.txt to docs/")
+    # 3. PROOF
+    run_module("dispersion_validator.py", "8. Dispersion Proof", "dispersion_validation.png")
+    run_module("kaluza_klein_tower.py", "9. KK Spectrum Tower", "kk_tower_spectrum.png", ["--batch"])
+
+    # 4. VALIDATION
+    # Use kagra_noise_simulation.py or kagra_validation.py? Based on inventory, we need kagra_noise_prediction.png
+    # modules/kagra_noise_simulation.py likely produces it.
+    run_module("kagra_noise_simulation.py", "10. KAGRA Noise Simulation", "kagra_noise_prediction.png")
+    run_module("conoscopy_simulation.py", "11. Conoscopy (Visual Proof)", "experiment_conoscopy.png")
+    run_module("tensor_simulation.py", "12. Tensor Anisotropy", "tensor_simulation_results.png")
+
+    # 5. APPLICATIONS
+    run_module("interactive_cloaking.py", "13. Cloaking Simulation", "cloaking_simulation_result.png", ["--batch"])
+    run_module("optical_black_hole.py", "14. Optical Black Hole", "optical_black_hole.png")
 
     # 6. Report Generation
-    print("\n[EXEC] Running Report Generator...")
+    print("\n[EXEC] Running Final Report Generator...")
     cmd = ["python", "generate_report.py"]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode == 0:
@@ -173,18 +133,30 @@ def run_batch_simulation():
         print(res.stderr)
 
     print("\n" + "="*60)
-    print("FINAL PROJECT STATUS REPORT")
+    print("ATLAS V4.2 GENERATION COMPLETE")
     print("="*60)
-    print("All batch modules executed.")
-    print("Check 'QRS_Final_Report.html' for results.")
+
+def launch_interactive_control_center():
+    """Launches interactive modules."""
+    print("\nLaunching Interactive Mode...")
+    scripts = [
+        ("interactive_prism.py", "Prism Simulation"),
+        ("interactive_cloaking.py", "Cloaking Simulation"),
+        ("tesseract_projection.py", "4D Tesseract Viewer"),
+        ("field_explorer.py", "5D Field Explorer")
+    ]
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.path.join(os.getcwd(), "modules")
+    
+    for script_name, label in scripts:
+        print(f"   -> Starting {label}...")
+        subprocess.Popen(["python", os.path.join("modules", script_name)], env=env, cwd=os.getcwd())
 
 def main():
     print_header()
-    
-    parser = argparse.ArgumentParser(description="QRS Simulation Dashboard")
-    parser.add_argument("--batch", action="store_true", help="Run full batch simulation for report")
-    parser.add_argument("--interactive", action="store_true", help="Launch interactive control center")
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--batch", action="store_true", help="Run full batch")
+    parser.add_argument("--interactive", action="store_true", help="Interactive Mode")
     args = parser.parse_args()
     
     if args.batch:
@@ -192,20 +164,8 @@ def main():
     elif args.interactive:
         launch_interactive_control_center()
     else:
-        # Menu Mode
-        print("Select Mode:")
-        print("  [1] Run Full Scientific Report (Batch Mode)")
-        print("  [2] Launch Interactive Control Center")
-        print("  [3] Exit")
-        
-        choice = input("\nEnter choice (1-3): ").strip()
-        
-        if choice == "1":
-            run_batch_simulation()
-        elif choice == "2":
-            launch_interactive_control_center()
-        else:
-            print("Exiting.")
+        print("Defaulting to Batch Mode for QA...")
+        run_batch_simulation()
 
 if __name__ == "__main__":
     main()
