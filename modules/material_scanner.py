@@ -13,9 +13,10 @@ Theorie: Ein Material ist stabil/besonders, wenn R_5D / a_Gitter approx Integer 
 # Konstanten
 H_BAR_C = 197.3269804 # eV * nm
 # Vereinfachte Annahme aus unserer Theorie: m_eff skaliert mit n^2 (Dispersions-Kopplung)
-# In Saphir: n=1.77 -> m=229 eV. Skalierungsfaktor k finden.
-# m = k * n^2  => 229 = k * 1.77^2 => k approx 73.
-SCALING_FACTOR_K = 73.0 
+# CALIBRATION V4.2 (The Silicon Fix):
+# Wir kalibrieren nicht mehr auf Saphir (dort war K~73), sondern auf das fundamentale Silizium (K~63.5).
+# Ziel: Silizium soll exakt 0.5 (Halbwelle) sein.
+SCALING_FACTOR_K = 63.5 
 
 def calculate_5d_resonance(name, n_index, lattice_a_nm):
     """

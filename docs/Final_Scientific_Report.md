@@ -120,5 +120,26 @@ Vom Atomgitter (NaCl) bis zur Galaxie (UGC 2885) beschreibt dieselbe Mathematik 
 Wir haben gezeigt, dass Optik eigentlich Geometrie ist.
 
 ---
+
+### Anhang A: Kritische Annahmen & Parameter (Audit-Manifest)
+
+Um wissenschaftliche Integrität zu gewährleisten, legen wir alle Annahmen offen, die in die Berechnungen eingeflossen sind:
+
+1. **Massen-Skalierung (Kalibrierung V4.2):**
+    * Wir nutzen die Heuristik $m_{eff} = K \cdot n^2$.
+    * Faktor $K = 63.5$ wurde so gewählt, dass **Silizium** exakt die fundamentale Resonanz 0.5 ergibt.
+    * *Implikation:* Alle anderen Resonanz-Werte (Saphir 2.08, NaCl 2.32) sind relativ zu Silizium zu bewerten.
+
+2. **Dispersions-Modell (Pole Approximation):**
+    * In `nacl_dispersion_check.py` nehmen wir an, dass die UV-Resonanz (E_res) identisch mit der effektiven 5D-Masse ist.
+    * Phononen-Resonanzen (IR) wurden ignoriert.
+
+3. **Galaktische Dynamik:**
+    * Die "Metric Tension" wurde phänomenologisch als logarithmischer Term ($\Phi \sim \ln r$) modelliert, um den beobachteten $1/r$-Kraftverlauf zu erzeugen. Dies ist eine effektive Beschreibung, keine Herleitung aus erster Einstein-Gleichung.
+
+4. **Materie-Dichte:**
+    * Die Dichte $\rho_{5D}$ wurde als uniform über die 5. Dimension angenommen ("Zylindrische Bedingung").
+
+---
 **QRS Forschungsgruppe** | *Januar 2026*
 **Anhänge:** Code-Dateien in `modules/`, Simulationen in `images/`.
