@@ -65,7 +65,7 @@ def simulate_galaxy():
     
     # Text annotation
     plt.text(50, 100, "Newton Fails", color='blue')
-    plt.text(50, 320, "5D Theory Matches", color='red', fontweight='bold')
+    plt.text(50, 305, "5D Theory Matches", color='red', fontweight='bold', ha='left')
     
     # Text annotation
     plt.text(30, 0.2, "Keplerian Decline\n(Expected)", color='blue')
