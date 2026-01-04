@@ -90,7 +90,7 @@ def run_material_scan():
     # Markiere ganzzahlige Linien (Resonanz-Ziele)
     for i in range(1, 6):
         plt.axhline(i, color='red', linestyle='--', alpha=0.3)
-        plt.text(-0.5, i, f"Resonanz N={i}", color='red', fontsize=8)
+        plt.text(-0.5, i, f"Harmonic N={i}", color='red', fontsize=8)
         
     plt.title("Suche nach 5D-Resonanzen in realen Materialien", fontsize=14)
     plt.ylabel("Geometrisches Verhältnis R_5D / a_Lattice")

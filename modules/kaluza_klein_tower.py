@@ -66,7 +66,7 @@ def run_kk_tower_analysis():
         color = 'blue'
         
         if mode_label == 1:
-            label_text = f"EFT Cutoff $\Lambda$ ({energy:.1f} eV)"
+            label_text = rf"EFT Cutoff $\Lambda$ ({energy:.1f} eV)"
             color = 'red'
         elif mode_label == 2:
             label_text = f"2nd Harmonic ({energy:.1f} eV)"

@@ -121,9 +121,10 @@ def run_batch_simulation():
     # 5. APPLICATIONS
     run_module("interactive_cloaking.py", "13. Cloaking Simulation", "cloaking_simulation_result.png", ["--batch"])
     run_module("optical_black_hole.py", "14. Optical Black Hole", "optical_black_hole.png")
+    run_module("photoelasticity_5d.py", "15. Digital Photoelasticity", "stress_optics_5d.png")
 
     # 6. Protocol
-    run_module("educational_proof.py", "15. Scientific Protocol Gen", "Math_for_Humans.txt")
+    run_module("educational_proof.py", "16. Scientific Protocol Gen", "Math_for_Humans.txt")
     if os.path.exists("Math_for_Humans.txt") and not os.path.exists(os.path.join("docs", "Math_for_Humans.txt")):
          shutil.move("Math_for_Humans.txt", os.path.join("docs", "Math_for_Humans.txt"))
 

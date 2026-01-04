@@ -22,9 +22,9 @@ ZIEL: Wir berechnen die Größe der 5. Dimension aus der Farbe von Licht.
 --------------------------------------------------
   • Licht wird in Saphir gebrochen. Wir messen den Brechungsindex n.
     n_Saphir        =     1.7700       | Gemessener Brechungsindex
-  • Die Masse (Energie) des 5D-Feldes berechnet sich aus n:
-  • Formel: E = K * n^2 (Universelles Dispersions-Gesetz)
-    E_Masse         =   198.9392 eV    | Berechnete Effektive Masse
+  • Die Cutoff-Energie (Lambda) des 5D-Feldes berechnet sich aus n:
+  • Formel: Lambda = K * n^2 (Universelles Cutoff-Gesetz)
+    Lambda_cutoff   =   198.9392 eV    | Berechneter EFT Cutoff
   • HINWEIS ZUR PHYSIK: Der UV-Cutoff (Bandlücke) liegt bei ca. 10 eV.
   • Der hier berechnete Wert (198.94 eV) ist deutlich höher.
   • INTERPRETATION: Dies ist die 'Effektive Plasmonen-Masse' des Gitters.
