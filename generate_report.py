@@ -1,6 +1,13 @@
 import os
 import base64
 import datetime
+import sys
+
+# Robust path setup
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
+from modules.core import materials, experiments
+from modules import quantum_tob_optimizer, raytracer_5d
 
 def get_base64_src(filepath, mime_type):
     if not filepath or not os.path.exists(filepath):
