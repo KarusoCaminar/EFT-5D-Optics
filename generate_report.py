@@ -4,16 +4,15 @@ import datetime
 
 def get_image_base64(filepath):
     if not filepath or not os.path.exists(filepath):
-        # Return a placeholder or empty string if file missing
         return ""
     with open(filepath, "rb") as image_file:
         data = image_file.read()
     return base64.b64encode(data).decode('utf-8')
 
 def generate_report():
-    print("--- Generating Professional Report (The Scientific Atlas V5.1) ---")
+    print("--- Generating Professional Report (The Scientific Atlas V5.2) ---")
     
-    # Files to include (The Master Inventory - V5.1 TOB Edition)
+    # Files to include (The Master Inventory)
     images_inventory = {
         # 1. GEOMETRY
         "tesseract": "images/animations/tesseract_projection.gif",
@@ -40,26 +39,23 @@ def generate_report():
         "diamond": "images/plots/diamond_comparison.png",
         "stress": "images/plots/stress_optics_5d.png",
         
-        # 6. ANIMATIONS
+        # 6. TOB
+        "tob": "images/plots/quantum_tob_result.png",
+        
+        # 7. ANIMATIONS (For Main Body)
         "cloaking": "images/animations/cloaking_simulation.gif",
         "prism": "images/animations/prism_simulation.gif",
-        "field": "images/animations/field_explorer.gif",
-        
-        # 7. QUANTUM TOB (NEW)
-        "tob": "images/plots/quantum_tob_result.png"
+        "field": "images/animations/field_explorer.gif"
     }
     
     # Appendix Inventory (Curated)
     appendix_inventory = {
-        "Impulsumleitung (Momentum Transfer)": "images/plots/momentum_transfer.png",
-        "Lorentz-Invarianz & 5D-Konsistenz": "images/plots/lorentz_proof.png",
-        "Das Optische Schwarze Loch (Eereignishorizont)": "images/plots/optical_black_hole.png",
-        "5D-Lichtleiter (Fiber Simulation)": "images/plots/fiber_simulation.png",
-        "Quanten-Refraktometer (Temperatur-Drift)": "images/plots/quantum_refractometer_results_v2.png"
+        "Momentum Transfer (Impulserhaltung)": "images/plots/momentum_transfer.png",
+        "Lorentz Invariance Proof": "images/plots/lorentz_proof.png",
+        "Optical Black Hole (Event Horizon)": "images/plots/optical_black_hole.png",
+        "5D Fiber Simulation": "images/plots/fiber_simulation.png",
+        "Quantum Refractometer Data": "images/plots/quantum_refractometer_results_v2.png"
     }
-    
-    # Helper to check if file exists
-    images = {k: v for k, v in images_inventory.items() if os.path.exists(v)}
 
     # HTML Header
     html_head = f"""
@@ -83,19 +79,15 @@ def generate_report():
             .visual-img img {{ width: 100%; height: auto; display: block; }}
             .visual-desc {{ flex: 1; padding: 30px; display: flex; flex-direction: column; justify-content: center; }}
             .visual-desc h4 {{ margin-top: 0; color: #d35400; font-size: 14pt; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }}
-            .visual-desc p {{ margin-bottom: 10px; font-size: 10pt; line-height: 1.5; }}
-            
-            .callout {{ background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; margin: 30px 0; border-radius: 4px; }}
             
             .gallery-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px 0; }}
-            .gallery-item {{ border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: white; }}
+            .gallery-item {{ border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }}
             .gallery-item img {{ width: 100%; height: auto; display: block; }}
-            .gallery-caption {{ padding: 10px; text-align: center; font-size: 9pt; color: #555; background: #fafafa; border-top: 1px solid #eee; font-weight: 600; }}
+            .gallery-item video {{ width: 100%; height: auto; display: block; }}
+            .gallery-caption {{ padding: 15px; text-align: center; font-size: 10pt; color: #444; background: #fafafa; border-top: 1px solid #eee; font-weight: 600; }}
             
             @media print {{
                 body {{ background: white; padding: 0; margin: 0; }}
-                .header, .section {{ box-shadow: none; border: none; padding: 0; margin-bottom: 30px; }}
-                .visual-card {{ border: 1px solid #ddd; page-break-inside: avoid; }}
                 .gallery-grid {{ display: block; }}
                 .gallery-item {{ margin-bottom: 20px; page-break-inside: avoid; }}
             }}
@@ -108,106 +100,136 @@ def generate_report():
     <body>
         <div class="header">
             <h1>QRS: The Effective Field Theory of 5D Optics</h1>
-            <p><strong>The Scientific Atlas (Version 5.1 - Quantum Architecture)</strong></p>
+            <p><strong>The Scientific Atlas (Version 5.2 - Final Polish)</strong></p>
             <p class="timestamp">Generiert am: {datetime.datetime.now().strftime('%d. %B %Y')}</p>
         </div>
 
+        <!-- CHAPTERS 1-6 (Standard Structure) -->
         <div class="section">
             <h2>1. Fundament: Die Geometrie des Raums</h2>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/gif;base64,{get_image_base64(images.get('tesseract'))}" /></div>
-                <div class="visual-desc"><h4>1.1 Die Projektion</h4><p>Materie ist der Schatten einer 5D-Struktur.</p></div>
+                <div class="visual-img"><img src="data:image/gif;base64,{get_image_base64(images_inventory.get('tesseract'))}" /></div>
+                <div class="visual-desc"><h4>1.1 Die Projektion</h4><p>Materie ist der Schatten einer 5D-Struktur (Tesserakt-Rotation).</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('kaluza'))}" /></div>
-                <div class="visual-desc"><h4>1.2 Der Kaluza-Klein Zylinder</h4><p>Ladung = Bewegung in 5D.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('kaluza'))}" /></div>
+                <div class="visual-desc"><h4>1.2 Der Kaluza-Klein Zylinder</h4><p>Ladung entsteht durch Impuls in der 5. Dimension.</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('ring'))}" /></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('ring'))}" /></div>
                 <div class="visual-desc"><h4>1.3 Quantisierung</h4><p>Elektronen sind stehende Wellen (grün = stabil).</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('metric'))}" /></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('metric'))}" /></div>
                 <div class="visual-desc"><h4>1.4 Der Metrische Spanner</h4><p>Brechungsindex = Raumzeit-Dichte.</p></div>
             </div>
         </div>
 
         <div class="section">
-            <h2>2. Materie: Der Resonanz-Beweis</h2>
+            <h2>2. Materie & Resonanz</h2>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('scan'))}" /></div>
-                <div class="visual-desc"><h4>2.1 Universeller Scan</h4><p>Silizium (N=0.5) und Saphir (N=2.0) folgen der 5D-Harmotik.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('scan'))}" /></div>
+                <div class="visual-desc"><h4>2.1 Universeller Scan</h4><p>Alle stabilen Kristallgitter (Si, Al2O3) liegen auf 5D-Resonanzen.</p></div>
+            </div>
+             <div class="visual-card">
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('lattice'))}" /></div>
+                <div class="visual-desc"><h4>2.2 Saphir Locking</h4><p>Verhältnis 2.08: Geometrie wird vom Gitter erzwungen.</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('lattice'))}" /></div>
-                <div class="visual-desc"><h4>2.2 Saphir Locking</h4><p>Verhältnis 2.08: Geometrie wird vom Gitter erzwungen.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('locking'))}" /></div>
+                <div class="visual-desc"><h4>2.3 Geometric Locking</h4><p>Nyquist-Limit Stabilisierung bei 199 eV.</p></div>
             </div>
         </div>
 
         <div class="section">
-            <h2>3. Spektrum & Cutoff</h2>
+            <h2>3. Spektrale Beweise</h2>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('dispersion'))}" /></div>
-                <div class="visual-desc"><h4>3.1 Dispersion</h4><p>Die Masse der Fluktuationen (~8.8 eV) erzeugt die Lichtbrechung.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('dispersion'))}" /></div>
+                <div class="visual-desc"><h4>3.1 Dispersion</h4><p>Lichtbrechung wird durch die effektive Masse (~8.8 eV) verursacht.</p></div>
+            </div>
+            <div class="visual-card">
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('tower'))}" /></div>
+                <div class="visual-desc"><h4>3.2 Cutoff Scale</h4><p>Der EFT-Cutoff definiert die Grenze der geometrischen Optik.</p></div>
             </div>
         </div>
 
         <div class="section">
             <h2>4. Validierung</h2>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('kagra'))}" /></div>
-                <div class="visual-desc"><h4>4.1 KAGRA Noise</h4><p>Geometrisches Rauschen bei 20K.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('kagra'))}" /></div>
+                <div class="visual-desc"><h4>4.1 KAGRA Noise</h4><p>Geometrisches Rauschen erklärt Gravitationswellen-Anomalien.</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('galaxy'))}" /></div>
-                <div class="visual-desc"><h4>4.2 Data Connector: Galaxien</h4><p>Rotation ohne Dunkle Materie erklärt durch 5D-Metrik.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('galaxy'))}" /></div>
+                <div class="visual-desc"><h4>4.2 Data Connector: Galaxien</h4><p>Rotationskurven erklärt ohne Dunkle Materie (Geometry Drag).</p></div>
+            </div>
+             <div class="visual-card">
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('conoscopy'))}" /></div>
+                <div class="visual-desc"><h4>4.3 Visuelle Interferenz</h4><p>Konoskopie zeigt die 4D-Symmetrie im Kristall.</p></div>
             </div>
         </div>
 
         <div class="section">
             <h2>5. V5.0 Physics Engine</h2>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('raytrace'))}" /></div>
-                <div class="visual-desc"><h4>5.1 5D Raytracing</h4><p>Prozedurale Berechnung von Geodäten (Lichtkrümmung).</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('raytrace'))}" /></div>
+                <div class="visual-desc"><h4>5.1 5D Raytracing (Engine)</h4><p>Lichtbahnen folgen Geodäten in der gekrümmten 5D-Metrik.</p></div>
+            </div>
+             <div class="visual-card">
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('diamond'))}" /></div>
+                <div class="visual-desc"><h4>5.2 Diamond Validation</h4><p>Vergleich: 5D-Sim (Weiß) vs. Snellius (Grün). Perfekte Übereinstimmung.</p></div>
             </div>
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('diamond'))}" /></div>
-                <div class="visual-desc"><h4>5.2 Beweis: Brechung = Geometrie</h4><p>Weiß (5D) und Grün (Snellius) sind identisch.</p></div>
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('stress'))}" /></div>
+                <div class="visual-desc"><h4>5.3 Stress-Optik</h4><p>Mechanische Spannung verändert die lokale Metrik (Isochromaten).</p></div>
             </div>
         </div>
 
-        <!-- NEW CHAPTER -->
         <div class="section">
             <h2>6. Quantum Architecture (TOB)</h2>
-            <p>Neu in V5.1: Wir wenden <strong>Topology Optimization (TOB)</strong> auf die Raumzeit an. Ziel: Ein Gitter ohne geometrische Reibung (Supraleitung).</p>
+            <div class="visual-card">
+                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images_inventory.get('tob'))}" /></div>
+                <div class="visual-desc">
+                    <h4>6.1 Das Optimale Gitter (Supraleitung)</h4>
+                    <p>Globales Optimum bei 90° Twist-Winkel. Minimale geometrische Reibung.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. REALTIME SIMULATIONS (Standardized Layout) -->
+        <div class="section">
+            <h2>7. Echtzeit-Simulationen (Dynamik)</h2>
+            <p>Hier untersuchen wir das dynamische Verhalten der Felder (Zeitabhängige Lösungen).</p>
             
             <div class="visual-card">
-                <div class="visual-img"><img src="data:image/png;base64,{get_image_base64(images.get('tob'))}" /></div>
+                <div class="visual-img"><img src="data:image/gif;base64,{get_image_base64(images_inventory.get('cloaking'))}" /></div>
                 <div class="visual-desc">
-                    <h4>6.1 Das Optimale Gitter</h4>
-                    <p><strong>Die Simulation:</strong> Ein evolutionärer Algorithmus sucht die perfekten Gitter-Parameter.</p>
-                    <p><strong>Ergebnis:</strong> Ein Twist-Winkel von ~90° minimiert die effektive Masse. Das erklärt "Magic Angle Graphene".</p>
+                    <h4>7.1 Invisibility Cloaking</h4>
+                    <p>Die Metrik leitet die Wellenfronten um das Objekt herum.</p>
+                </div>
+            </div>
+
+            <div class="visual-card">
+                <div class="visual-img"><img src="data:image/gif;base64,{get_image_base64(images_inventory.get('prism'))}" /></div>
+                <div class="visual-desc">
+                    <h4>7.2 Prismen-Brechung</h4>
+                    <p>Echtzeit-Lösung der Wellengleichung im Medium.</p>
+                </div>
+            </div>
+            
+             <div class="visual-card">
+                <div class="visual-img"><img src="data:image/gif;base64,{get_image_base64(images_inventory.get('field'))}" /></div>
+                <div class="visual-desc">
+                    <h4>7.3 Field Explorer</h4>
+                    <p>Visualisierung der 5D-Skalarfelder und ihrer Fluktuationen.</p>
                 </div>
             </div>
         </div>
 
-        <div class="section">
-            <h2>7. Echtzeit-Simulationen</h2>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="visual-card" style="margin:0; flex-direction:column;">
-                     <div class="visual-img" style="border:none; border-bottom:1px solid #eee;"><img src="data:image/gif;base64,{get_image_base64(images.get('cloaking'))}" /></div>
-                     <div class="visual-desc" style="padding:15px;"><h4>Cloaking</h4></div>
-                </div>
-                <div class="visual-card" style="margin:0; flex-direction:column;">
-                     <div class="visual-img" style="border:none; border-bottom:1px solid #eee;"><img src="data:image/gif;base64,{get_image_base64(images.get('prism'))}" /></div>
-                     <div class="visual-desc" style="padding:15px;"><h4>Prisma</h4></div>
-                </div>
-            </div>
-        </div>
-
+        <!-- APPENDIX A: IMAGES -->
         <div class="section">
             <h2>Appendix A: Supplementary Archive</h2>
-            <p>Vertiefende Analysen (Kuratiert).</p>
+            <p>Detaillierte Analyse-Plots und mathematische Beweise.</p>
             <div class="gallery-grid">
             {
                 "".join([
@@ -223,6 +245,29 @@ def generate_report():
             }
             </div>
         </div>
+
+        <!-- APPENDIX B: VIDEOS (Restored) -->
+        <div class="section">
+            <h2>Appendix B: Video Animations (Source Files)</h2>
+            <p>Alle generierten MP4-Simulationen im Überblick.</p>
+            <div class="gallery-grid">
+            {
+                "".join([
+                    f'''
+                    <div class="gallery-item">
+                        <video controls>
+                            <source src="data:video/mp4;base64,{get_image_base64(os.path.join("images/animations", f))}" type="video/mp4">
+                        </video>
+                        <div class="gallery-caption">{f} (MP4)</div>
+                    </div>
+                    '''
+                    for f in sorted(os.listdir("images/animations"))
+                    if f.endswith(".mp4")
+                ])
+            }
+            </div>
+        </div>
+
     </body>
     </html>
     """
@@ -234,17 +279,15 @@ def generate_report():
     
     print("Report generated: QRS_Final_Report.html (Scientific Atlas Edition)")
     
-    # PDF Conversion attempt
+    # PDF generation
     try:
         from xhtml2pdf import pisa
         with open("QRS_Final_Report.pdf", "wb") as pdf_file:
             pisa_status = pisa.CreatePDF(final_html, dest=pdf_file)
         if pisa_status.err:
-            print("PDF generation error")
+            print("PDF error")
         else:
             print("PDF generated: QRS_Final_Report.pdf")
-    except ImportError:
-        print("xhtml2pdf not installed, skipping PDF generation.")
     except Exception as e:
         print(f"PDF Error: {e}")
 
